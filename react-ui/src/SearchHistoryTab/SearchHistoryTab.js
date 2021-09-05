@@ -11,6 +11,8 @@ const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE";
 const SET_SELECTED_SEARCH = "SET_SELECTED_SEARCH";
 const SET_TWEETS_OF_SELECTED_SEARCH = "SET_TWEETS_OF_SELECTED_SEARCH";
 
+const BACK_TO_SAVED_SEARCHES_LIST = "BACK_TO_LIST_SEARCH_LIST";
+
 function reducer(state, action) {
     switch (action.type) {
         case SET_OLD_SEARCHES:
@@ -37,6 +39,14 @@ function reducer(state, action) {
                 tweetsOfSelectedSearchLoading: false,
                 tweetsOfSelectedSearch: action.tweets,
             };
+        case BACK_TO_SAVED_SEARCHES_LIST:
+            return {
+                ...state,
+                errorMessage: null,
+                tweetsOfSelectedSearchLoading: true,
+                selectedSearch: null,
+                tweetsOfSelectedSearch: [],
+            }
     }
 }
 
@@ -93,10 +103,16 @@ const searchHistoryTab = () => {
         [selectedSearch]
     );
 
+    const backToSavedSearchesList = React.useCallback(
+        () => { dispatch({ type: BACK_TO_SAVED_SEARCHES_LIST }) },
+        []
+    );
+
     return (
         <div>
             <SearchHistoryHeader
                 selectedSearch={selectedSearch}
+                backToSavedSearchesList={backToSavedSearchesList}
             />
             {selectedSearch ?
                 <TweetList
