@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+    webapp:
+        build: ./react-ui
+        image: twitsearch-ui:latest
+        volumes:
+            - ./react-ui:/usr/bin/twitsearch/ui
+    server:
+        build: ./
+        image: twitsearch-server:latest
+        volumes:
+            - .:/usr/bin/twitsearch/server

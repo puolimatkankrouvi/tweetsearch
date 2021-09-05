@@ -1,0 +1,22 @@
+# Node build artifacts
+node_modules
+npm-debug.log
+
+# Local development
+*.env
+*.dev
+env
+.DS_Store
+
+server/credentials.js
+server/credentials.ts
+server/dbConfig.js
+server/dbConfig.ts
+server/build
+
+tehtavananto.txt
+
+.eslintcache
+
+.vs
+react-ui/.vs
