@@ -17,7 +17,7 @@
     "@types/body-parser": "^1.19.1",
     "@types/mongoose": "^5.11.97",
     "@types/oauth": "^0.9.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "bind-decorator": "^1.0.11",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
