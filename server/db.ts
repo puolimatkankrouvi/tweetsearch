@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { IOldSearchWithoutTweets, ITweetSearch } from "./interfaces";
 dotenv.config();
 
 const tweetSchema = new mongoose.Schema({
@@ -36,85 +37,67 @@ interface ITweetSearchDbModel extends mongoose.Document {
 
 const TweetSearch = mongoose.model<ITweetSearchDbModel>("TweetSearch", tweetCollectionSchema);
 
-export interface ITweetSearch {
-    date: string;
-    name: string;
-    statuses: ReadonlyArray<ITweet>;
-}
-
-interface ITweet {
-    created_at: string;
-    text: string;
-    user: IUser;
-}
-
-interface IUser {
-    name: string;
-    screen_name: string;
-    profile_image_url: string;
-}
-
 const pageSize = 100;
 
 const connectionString = process.env.CONNECTION_STRING || "";
 
-export async function getTweetSearches(page: number) {
+function tweetSearchToResultWithoutTweets(tweetSearch: ITweetSearchDbModel): IOldSearchWithoutTweets {
+    return { id: tweetSearch._id, date: tweetSearch.date, name: tweetSearch.name };
+}
+
+export async function getTweetSearches(page: number) : Promise<ReadonlyArray<IOldSearchWithoutTweets>> {
     await mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
     
     const skip = page * pageSize;
-    const tweetSearches = await TweetSearch.find(
+    const tweetSearchDbModels = await TweetSearch.find(
             {},
             "name date _id",
             { limit: 100, skip }
     )
     .sort({"date": -1})
     .exec();
-        
+
+    const tweetSearches = tweetSearchDbModels.map(tweetSearchToResultWithoutTweets) as ReadonlyArray<IOldSearchWithoutTweets>;       
     return tweetSearches;
 }
-
-export interface ISearchWithTweets {
-    tweets: ReadonlyArray<ITweet>;
-}
     
-export async function getTweetSearchWithTweets(tweetSearchId: string): Promise<ISearchWithTweets> {
+export async function getTweetSearchWithTweets(tweetSearchId: string): Promise<ITweetSearch | null> {
     await mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
     const tweetSearch: ITweetSearchDbModel | null = await TweetSearch.findById(tweetSearchId, "tweets")
         .populate("tweets")
         .lean<ITweetSearchDbModel>()
         .exec();
 
+    if (!tweetSearch) {
+        return null;
+    }
+
     return tweetSearchToResult(tweetSearch);
 }
 
-function tweetSearchToResult(tweetSearch: ITweetSearchDbModel | null): ISearchWithTweets {
-    if (tweetSearch) {
-        // Putting user properties inside nested user object.
-        return {
-            ...tweetSearch,
-            tweets: tweetSearch.tweets.map(tweet => ({
-                created_at: tweet.created_at,
-                text: tweet.text,
-                user: {
-                    name: tweet.username,
-                    screen_name: tweet.screen_name,
-                    profile_image_url: tweet.profile_image_url,
-                }
-            })),
-        };
-    }
-
+function tweetSearchToResult(tweetSearch: ITweetSearchDbModel): ITweetSearch {
+    // Putting user properties inside nested user object.
     return {
-        tweets: [],
+        ...tweetSearch,
+        tweets: tweetSearch.tweets.map(tweet => ({
+            _id: tweet._id,
+            created_at: tweet.created_at,
+            text: tweet.text,
+            user: {
+                name: tweet.username,
+                screen_name: tweet.screen_name,
+                profile_image_url: tweet.profile_image_url,
+            }
+        })),
     };
 }
 
-export async function saveTweets(tweetJson: ITweetSearch): Promise<mongoose.Document> {
+export async function saveTweetSearch(tweet: ITweetSearch): Promise<ITweetSearch> {
     await mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
     const tweets = [];
 
-    for (const status of tweetJson.statuses) {
+    for (const status of tweet.tweets) {
         const tweet = new TweetModel({
             created_at: status.created_at,
             text: status.text,
@@ -128,10 +111,12 @@ export async function saveTweets(tweetJson: ITweetSearch): Promise<mongoose.Docu
     }
 
     const tweetSearch = new TweetSearch({
-        date: tweetJson.date,
-        name: tweetJson.name,
+        date: tweet.date,
+        name: tweet.name,
         tweets,
     });
 
-    return await tweetSearch.save();
+    const tweetSearchDbModel = await tweetSearch.save();
+
+    return tweetSearchToResult(tweetSearchDbModel);
 }

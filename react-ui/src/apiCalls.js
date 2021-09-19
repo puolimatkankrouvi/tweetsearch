@@ -56,7 +56,7 @@ export function save(searchResult, name) {
 	const body = {
 		name,
 		date: new Date(),
-		statuses: searchResult.statuses,
+		tweets: searchResult.statuses,
 	};
 
 	return Axios.put(saveUrl, body);

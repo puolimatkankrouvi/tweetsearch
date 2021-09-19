@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import express, { Request } from "express";
 import * as db from "./db";
 import path from 'path';
-import { ITweetSearch } from "./db";
+import { IOldSearchWithoutTweets, ITweetSearch } from "./interfaces";
 import { search } from "./search";
 
 dotenv.config();
@@ -42,7 +42,8 @@ app.post("/api/search", (req, res) => {
     }
 });
 
-app.get("/api/oldsearches", async (req: Request<{}, {}, {},{page?: number}>, res, next) => {
+type OldSearchesRequest = Request<Record<string, never>, ReadonlyArray<IOldSearchWithoutTweets>, Record<string, never>, {page?: number}>;
+app.get("/api/oldsearches", async (req: OldSearchesRequest, res, next) => {
     try {     
         let page = 0;
         if (req.query.page) {
@@ -58,21 +59,24 @@ app.get("/api/oldsearches", async (req: Request<{}, {}, {},{page?: number}>, res
     }
 });
 
-app.get("/api/oldsearches/:searchId/", async (req: Request<{searchId: string},{},{}>, res, next) => {
+type SingleOldSearchRequest = Request<{searchId: string}, ITweetSearch>;
+app.get("/api/oldsearches/:searchId/", async (req: SingleOldSearchRequest, res, next) => {
     try {
         const tweetSearch = await db.getTweetSearchWithTweets(req.params.searchId);
-        res.statusCode = 200;
-        res.send(tweetSearch);
+
+        res.statusCode = tweetSearch ? 200 : 400;
+        res.send(tweetSearch ?? undefined);
     }
     catch (err) {
         next("Getting old search failed");
     }
 });
 
-app.put("/api/save", async (req: Request<{}, {}, ITweetSearch>, res, next) => {
-    const tweetSearch: ITweetSearch = req.body;
+type SaveSearchRequest = Request<Record<string, never>, ITweetSearch, ITweetSearch, Record<string, never>>;
+app.put("/api/save", async (req: SaveSearchRequest, res, next) => {
+    const tweetSearch = req.body;
     try {
-        const result = await db.saveTweets(tweetSearch);
+        const result: ITweetSearch = await db.saveTweetSearch(tweetSearch);
         res.statusCode = 200;
         res.send(result);
     }

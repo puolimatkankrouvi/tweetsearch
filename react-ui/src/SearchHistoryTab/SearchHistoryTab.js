@@ -74,6 +74,7 @@ const searchHistoryTab = () => {
 
     const onSearchSelected = React.useCallback(
         (search) => {
+            console.info(search);
             dispatch({ type: SET_SELECTED_SEARCH, search })
         },
         []
@@ -91,13 +92,13 @@ const searchHistoryTab = () => {
 
     React.useEffect(
         () => {
-            if (selectedSearch && selectedSearch._id) {
+            if (selectedSearch && selectedSearch.id) {
                 const successCallback = (oldSearch) => {
                     dispatch({ type: SET_TWEETS_OF_SELECTED_SEARCH, tweets: oldSearch.tweets }
                 )};
 
                 const errorCallback = (errorMessage) => (dispatch({ type: SET_ERROR_MESSAGE, errorMessage }));
-                getOldSearchWithTweets(selectedSearch._id, successCallback, errorCallback);
+                getOldSearchWithTweets(selectedSearch.id, successCallback, errorCallback);
             }
         },
         [selectedSearch]

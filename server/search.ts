@@ -10,7 +10,7 @@ interface IMessage {
 
 const twitterSearchUrl = "https://api.twitter.com/1.1/search/tweets.json";
 
-export function search(_req: Request, _res: Response, query: string, next: (result: IMessage) => void) {
+export function search(_req: Request, _res: Response, query: string, next: (result: IMessage) => void) : void {
     const oauth2 = new oauth.OAuth2(
         process.env.CONSUMER_KEY || "",
         process.env.CONSUMER_SECRET || "",
