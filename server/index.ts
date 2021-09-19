@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-import bodyParser from "body-parser";
 import express, { Request } from "express";
 import * as db from "./db";
 import path from 'path';
@@ -14,8 +13,8 @@ const PORT = process.env.PORT || 80;
 app.use(express.static(path.resolve(__dirname, "../../react-ui/build")));
 
 // Body parser
-app.use(bodyParser.urlencoded({extended: false, limit: "1000mb"}));
-app.use(bodyParser.json({limit: "1000mb"}));
+app.use(express.urlencoded({extended: false, limit: "1000mb"}));
+app.use(express.json({limit: "1000mb"}));
 
 app.get("/api/search", (req, res) => {
   // url: /search?q=&23query
@@ -81,6 +80,7 @@ app.put("/api/save", async (req: SaveSearchRequest, res, next) => {
         res.send(result);
     }
     catch(error) {
+        
         next("Saving search failed");
     }
 });
