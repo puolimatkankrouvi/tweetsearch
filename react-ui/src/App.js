@@ -15,7 +15,7 @@ class App extends Component {
   render() {
     return (
     <div className="App">       
-      <HashRouter >     
+      <HashRouter>     
         <Header />    
         <Route exact path="/" component={SearchTab} />
         <Route path="/saved" component={SearchHistoryTab} />

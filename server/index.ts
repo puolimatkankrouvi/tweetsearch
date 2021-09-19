@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import express, { Request, text } from "express";
+import express, { Request } from "express";
 import * as db from "./db";
 import path from 'path';
 import { IOldSearchWithoutTweets, ITweetSearch } from "./interfaces";

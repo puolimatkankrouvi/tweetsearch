@@ -108,8 +108,6 @@ const searchHistoryTab = () => {
         []
     );
 
-    
-    console.info(selectedSearch);
     return (
         <div>
             <SearchHistoryHeader
