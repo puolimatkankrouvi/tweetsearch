@@ -13,7 +13,7 @@ export default function Header() {
 
 	const menuItems = [
 		{label: "Search", command: () => navigateToPage("/")},
-		{label: "Saved searches", command: () => navigateToPage("/history")},
+		{label: "Saved searches", command: () => navigateToPage("/saved")},
 	];
 
 	return(
