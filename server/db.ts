@@ -78,9 +78,10 @@ export async function getTweetSearchWithTweets(tweetSearchId: string): Promise<I
 function tweetSearchToResult(tweetSearch: ITweetSearchDbModel): ITweetSearch {
     // Putting user properties inside nested user object.
     return {
-        ...tweetSearch,
+        name: tweetSearch.name,
+        date: tweetSearch.date,
         tweets: tweetSearch.tweets.map(tweet => ({
-            _id: tweet._id,
+            id: tweet._id,
             created_at: tweet.created_at,
             text: tweet.text,
             user: {

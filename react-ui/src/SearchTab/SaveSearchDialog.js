@@ -31,8 +31,8 @@ const saveSearchDialog = (props) => {
     const saveSearch = React.useCallback(() => {
         if (validator.current.allValid()) {
             save(props.searchResult, searchName)
-                .then(showTweetsSavedMessage(), showErrorMessage(),
-            );
+                .then(() => showTweetsSavedMessage())
+                .catch(() => showErrorMessage());
 
             props.closeDialog();
         }

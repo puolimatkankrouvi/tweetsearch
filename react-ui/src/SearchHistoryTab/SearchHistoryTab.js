@@ -74,7 +74,6 @@ const searchHistoryTab = () => {
 
     const onSearchSelected = React.useCallback(
         (search) => {
-            console.info(search);
             dispatch({ type: SET_SELECTED_SEARCH, search })
         },
         []

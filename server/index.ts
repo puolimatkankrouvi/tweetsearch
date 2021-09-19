@@ -72,15 +72,14 @@ app.get("/api/oldsearches/:searchId/", async (req: SingleOldSearchRequest, res, 
 });
 
 type SaveSearchRequest = Request<Record<string, never>, ITweetSearch, ITweetSearch, Record<string, never>>;
-app.put("/api/save", async (req: SaveSearchRequest, res, next) => {
+app.post("/api/oldsearches", async (req: SaveSearchRequest, res, next) => {
     const tweetSearch = req.body;
     try {
         const result: ITweetSearch = await db.saveTweetSearch(tweetSearch);
         res.statusCode = 200;
         res.send(result);
     }
-    catch(error) {
-        
+    catch(error) {       
         next("Saving search failed");
     }
 });

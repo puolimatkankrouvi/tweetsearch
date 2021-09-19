@@ -1,7 +1,6 @@
 import Axios from 'axios';
 
 const searchUrl = `/api/search/`;
-const saveUrl = `/api/save/`;
 const oldSearchesUrl = `/api/oldsearches/`;
 
 export function search(searchText, config, successCallback, errorCallback) {
@@ -59,5 +58,5 @@ export function save(searchResult, name) {
 		tweets: searchResult.statuses,
 	};
 
-	return Axios.put(saveUrl, body);
+	return Axios.post(oldSearchesUrl, body);
 }
