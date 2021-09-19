@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import express, { Request } from "express";
+import express, { Request, text } from "express";
 import * as db from "./db";
 import path from 'path';
 import { IOldSearchWithoutTweets, ITweetSearch } from "./interfaces";
@@ -64,6 +64,7 @@ app.get("/api/oldsearches/:searchId/", async (req: SingleOldSearchRequest, res, 
         const tweetSearch = await db.getTweetSearchWithTweets(req.params.searchId);
 
         res.statusCode = tweetSearch ? 200 : 400;
+        res.set("Content-Type", "application/json");
         res.send(tweetSearch ?? undefined);
     }
     catch (err) {
@@ -77,6 +78,7 @@ app.post("/api/oldsearches", async (req: SaveSearchRequest, res, next) => {
     try {
         const result: ITweetSearch = await db.saveTweetSearch(tweetSearch);
         res.statusCode = 200;
+        res.set("Content-Type", "application/json");
         res.send(result);
     }
     catch(error) {       
