@@ -27,11 +27,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mars/heroku-cra-node.git"
+    "url": "https://github.com/puolimatkankrouvi/tweetsearch.git"
   },
   "keywords": [
     "express",
-    "react"
+    "react",
+    "Twitter"
   ],
   "license": "MIT",
   "devDependencies": {
