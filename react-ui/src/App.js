@@ -9,17 +9,19 @@ import Header from './Header.js';
 import SearchTab from './SearchTab/SearchTab';
 import SearchHistoryTab from "./SearchHistoryTab/SearchHistoryTab";
 
-import { Route, HashRouter } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
+import { createBrowserHistory } from "history";
+const history = createBrowserHistory();
 
 class App extends Component {
   render() {
     return (
     <div className="App">       
-      <HashRouter>     
+      <Router history={history}>     
         <Header />    
         <Route exact path="/" component={SearchTab} />
         <Route path="/saved" component={SearchHistoryTab} />
-      </HashRouter>
+      </Router>
     </div> 
     )
   }
