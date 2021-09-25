@@ -69,9 +69,15 @@ app.get("/api/oldsearches/:searchId/", async (req: SingleOldSearchRequest, res, 
     try {
         const tweetSearch = await db.getTweetSearchWithTweets(req.params.searchId);
 
-        res.statusCode = tweetSearch ? 200 : 400;
         res.set("Content-Type", "application/json");
-        res.send(tweetSearch ?? undefined);
+        if (tweetSearch)
+        {
+            res.send(tweetSearch);
+        }
+        else {
+            res.statusCode = 404;
+            res.send();
+        }
     }
     catch (err) {
         next("Getting old search failed");
