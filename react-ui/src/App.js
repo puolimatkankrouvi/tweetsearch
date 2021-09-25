@@ -17,19 +17,16 @@ import { createBrowserHistory } from "history";
 const history = createBrowserHistory();
 
 const reactPlugin = new ReactPlugin();
-if (process.env.NODE_ENV === "production")
-{
-  const appInsights = new ApplicationInsights({
-    config: {
-      connectionString: process.env.APPLICATIONINSIGHTS_CONNECTION_STRING,
-      extensions: [reactPlugin],
-      extensionConfig: {
-        [reactPlugin.identifier]: { history }
-      }
+const appInsights = new ApplicationInsights({
+  config: {
+    connectionString: process.env.APPLICATIONINSIGHTS_CONNECTION_STRING,
+    extensions: [reactPlugin],
+    extensionConfig: {
+      [reactPlugin.identifier]: { history }
     }
-  });
-  appInsights.loadAppInsights();
-}
+  }
+});
+appInsights.loadAppInsights();
 
 class App extends Component {
   render() {
@@ -45,4 +42,4 @@ class App extends Component {
   }
 }
 
-export default (process.env.NODE_ENV === "production" ? withAITracking(reactPlugin, App) : App);
+export default withAITracking(reactPlugin, App);
