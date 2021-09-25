@@ -2,10 +2,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+    entry: path.resolve(__dirname, 'src/index.js'),
     output: {
         path: path.resolve(__dirname, "build"),
-        filename: "[name].[chunkhash].bundle.js",
-        chunkFilename: '[name].[chunkhash].bundle.js',
+        filename: "bundle.js",
     },
     resolve: {
         modules : [path.join(__dirname, "src"), "node_modules"],
@@ -40,26 +40,10 @@ module.exports = {
             }
         ]
     },
-    optimization: {
-        splitChunks: {
-          cacheGroups: {
-            vendors: {
-              test: /node_modules\/(?!prime\/).*/,
-              name: "vendors",
-              chunks: "all",
-            },
-            prime: {
-              test: /node_modules\/(prime\/).*/,
-              name: "prime",
-              chunks: "all",
-            },
-          },
-        },
-        runtimeChunk: {
-          name: "manifest",
-        },
-    },
     plugins: [
         new HtmlWebpackPlugin({template: "./public/index.html"})
-    ]
+    ],
+    performance: {
+        hints: false,
+    },
 };
