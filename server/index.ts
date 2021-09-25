@@ -1,11 +1,17 @@
 import dotenv from "dotenv";
+dotenv.config();
+if (process.env.NODE_ENV === "production")
+{
+    const applicationInsights = require("applicationinsights");
+    applicationInsights.setup().start();
+}
+
 import express, { Request } from "express";
 import * as db from "./db";
 import path from 'path';
 import { IOldSearchWithoutTweets, ITweetSearch } from "./interfaces";
 import { search } from "./search";
 
-dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 80;
 
