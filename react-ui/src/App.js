@@ -1,6 +1,3 @@
-import { ApplicationInsights } from '@microsoft/applicationinsights-web';
-import { ReactPlugin, withAITracking } from '@microsoft/applicationinsights-react-js';
-
 import React, { Component } from 'react';
 import './App.css';
 import "primeflex/primeflex.css";
@@ -16,18 +13,6 @@ import { Router, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 const history = createBrowserHistory();
 
-const reactPlugin = new ReactPlugin();
-const appInsights = new ApplicationInsights({
-  config: {
-    connectionString: process.env.APPLICATIONINSIGHTS_CONNECTION_STRING,
-    extensions: [reactPlugin],
-    extensionConfig: {
-      [reactPlugin.identifier]: { history }
-    }
-  }
-});
-appInsights.loadAppInsights();
-
 class App extends Component {
   render() {
     return (
@@ -42,4 +27,4 @@ class App extends Component {
   }
 }
 
-export default withAITracking(reactPlugin, App);
+export default App;

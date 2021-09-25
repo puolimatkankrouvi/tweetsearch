@@ -17,8 +17,6 @@
     "webpack-dev-server": "^4.2.1"
   },
   "dependencies": {
-    "@microsoft/applicationinsights-react-js": "^3.2.0",
-    "@microsoft/applicationinsights-web": "^2.7.0",
     "axios": "^0.21.4",
     "classnames": "^2.3.1",
     "dotenv-webpack": "^7.0.3",
