@@ -1,6 +1,5 @@
 import React from 'react';
-import {ProgressBar} from 'primereact/progressbar';
-import { connect } from 'react-redux';
+import { ProgressBar } from 'primereact/progressbar';
 
 const tweetLoadingIndicator = () => {
     return (
@@ -14,10 +13,4 @@ const tweetLoadingIndicator = () => {
     );
 };
 
-function mapStateToProps(state) {
-    return {
-        tweetLoadProgress: state.tweetLoadProgress,
-    };
-}
-
-export default connect(mapStateToProps)(tweetLoadingIndicator);
+export default tweetLoadingIndicator;
