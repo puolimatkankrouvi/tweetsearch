@@ -46,7 +46,7 @@ function tweetSearchToResultWithoutTweets(tweetSearch: ITweetSearchDbModel): IOl
 }
 
 export async function getTweetSearches(page: number) : Promise<ReadonlyArray<IOldSearchWithoutTweets>> {
-    await mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
+    await mongoose.connect(connectionString);
     
     const skip = page * pageSize;
     const tweetSearchDbModels = await TweetSearch.find(
@@ -62,7 +62,7 @@ export async function getTweetSearches(page: number) : Promise<ReadonlyArray<IOl
 }
     
 export async function getTweetSearchWithTweets(tweetSearchId: string): Promise<ITweetSearch | null> {
-    await mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
+    await mongoose.connect(connectionString);
     const tweetSearch: ITweetSearchDbModel | null = await TweetSearch.findById(tweetSearchId, "tweets")
         .populate("tweets")
         .lean<ITweetSearchDbModel>()
@@ -94,7 +94,7 @@ function tweetSearchToResult(tweetSearch: ITweetSearchDbModel): ITweetSearch {
 }
 
 export async function saveTweetSearch(tweet: ITweetSearch): Promise<ITweetSearch> {
-    await mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(connectionString);
 
     const tweets = [];
 
