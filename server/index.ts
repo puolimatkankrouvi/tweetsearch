@@ -9,11 +9,13 @@ if (process.env.NODE_ENV === "production")
 import express, { Request } from "express";
 import * as db from "./db";
 import path from 'path';
+import helmet from "helmet";
+
 import { IOldSearchWithoutTweets, ITweetSearch } from "./interfaces";
 import { search } from "./search";
 
 const app = express();
-const PORT = process.env.PORT || 80;
+app.use(helmet());
 
 // Priority to serve any static files
 app.use(express.static(path.resolve(__dirname, "../../react-ui/build")));
@@ -98,4 +100,5 @@ app.post("/api/oldsearches", async (req: SaveSearchRequest, res, next) => {
     }
 });
 
+const PORT = process.env.PORT || 80;
 app.listen(PORT);
