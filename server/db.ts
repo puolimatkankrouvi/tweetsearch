@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import sanitize from "mongo-sanitize";
 import { IOldSearchWithoutTweets, ITweetSearch } from "./interfaces";
 dotenv.config();
 
@@ -63,7 +64,8 @@ export async function getTweetSearches(page: number) : Promise<ReadonlyArray<IOl
     
 export async function getTweetSearchWithTweets(tweetSearchId: string): Promise<ITweetSearch | null> {
     await mongoose.connect(connectionString);
-    const tweetSearch: ITweetSearchDbModel | null = await TweetSearch.findById(tweetSearchId, "tweets")
+
+    const tweetSearch: ITweetSearchDbModel | null = await TweetSearch.findById(sanitize(tweetSearchId), "tweets")
         .populate("tweets")
         .lean<ITweetSearchDbModel>()
         .exec();
