@@ -15,7 +15,14 @@ import { IOldSearchWithoutTweets, ITweetSearch } from "./interfaces";
 import { search } from "./search";
 
 const app = express();
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+            "img-src": ["twimg.com", "*.twimg.com"]
+        }
+    }
+}));
 
 // Priority to serve any static files
 app.use(express.static(path.resolve(__dirname, "../../react-ui/build")));
