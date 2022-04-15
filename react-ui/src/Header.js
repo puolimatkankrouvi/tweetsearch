@@ -1,14 +1,14 @@
 import React from 'react';
 import './Header.css';
 import { Menubar } from "primereact/menubar";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
-	const history = useHistory();
+	const navigate = useNavigate();
 	const title = <h1 className="app-title">Tweetsearch</h1>;
 
 	function navigateToPage(path) {
-		history.push(path);
+		navigate(path);
 	}
 
 	const menuItems = [

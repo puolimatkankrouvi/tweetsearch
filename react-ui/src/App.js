@@ -10,7 +10,7 @@ const SearchTab = React.lazy(() => import('./SearchTab/SearchTab'));
 const SearchHistoryTab = React.lazy(() => import('./SearchHistoryTab/SearchHistoryTab'));
 import LoadingIndicator from "./LoadingIndicator";
 
-import { HashRouter, Route } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 
 class App extends Component {
   render() {
@@ -18,9 +18,12 @@ class App extends Component {
     <div className="App">       
       <HashRouter>     
         <Header />
-        <Suspense  fallback={<LoadingIndicator />}>    
-          <Route exact path="/" component={SearchTab} />
-          <Route path="/saved" component={SearchHistoryTab} />
+        <Suspense  fallback={<LoadingIndicator />}>
+          <Routes>
+            <Route exact path="/" element={<SearchTab />}>
+            </Route>
+            <Route path="/saved" element={<SearchHistoryTab />} />
+          </Routes>    
         </Suspense>
       </HashRouter>
     </div> 
