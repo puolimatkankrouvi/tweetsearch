@@ -4,13 +4,9 @@ import { Request, Response } from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-interface IMessage {
-    message: string,
-}
-
 const twitterSearchUrl = "https://api.twitter.com/1.1/search/tweets.json";
 
-export function search(_req: Request, _res: Response, query: string, next: (result: IMessage) => void) : void {
+export function search(_req: Request, _res: Response, query: string, next: (result: TweetSearch.Server.ErrorMessage) => void) : void {
     const oauth2 = new oauth.OAuth2(
         process.env.CONSUMER_KEY || "",
         process.env.CONSUMER_SECRET || "",

@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import sanitize from "mongo-sanitize";
-import { IOldSearchWithoutTweets, ITweetSearch } from "./interfaces";
 dotenv.config();
 
 const tweetSchema = new mongoose.Schema({
@@ -42,11 +41,11 @@ const pageSize = 100;
 
 const connectionString = process.env.CONNECTION_STRING || "";
 
-function tweetSearchToResultWithoutTweets(tweetSearch: ITweetSearchDbModel): IOldSearchWithoutTweets {
+function tweetSearchToResultWithoutTweets(tweetSearch: ITweetSearchDbModel): TweetSearch.Server.OldSearchWithoutTweets {
     return { id: tweetSearch._id, date: tweetSearch.date, name: tweetSearch.name };
 }
 
-export async function getTweetSearches(page: number) : Promise<ReadonlyArray<IOldSearchWithoutTweets>> {
+export async function getTweetSearches(page: number) : Promise<ReadonlyArray<TweetSearch.Server.OldSearchWithoutTweets>> {
     await mongoose.connect(connectionString);
     
     const skip = page * pageSize;
@@ -58,11 +57,11 @@ export async function getTweetSearches(page: number) : Promise<ReadonlyArray<IOl
     .sort({"date": -1})
     .exec();
 
-    const tweetSearches = tweetSearchDbModels.map(tweetSearchToResultWithoutTweets) as ReadonlyArray<IOldSearchWithoutTweets>;       
+    const tweetSearches = tweetSearchDbModels.map(tweetSearchToResultWithoutTweets) as ReadonlyArray<TweetSearch.Server.OldSearchWithoutTweets>;       
     return tweetSearches;
 }
     
-export async function getTweetSearchWithTweets(tweetSearchId: string): Promise<ITweetSearch | null> {
+export async function getTweetSearchWithTweets(tweetSearchId: string): Promise<TweetSearch.Server.TweetSearch | null> {
     await mongoose.connect(connectionString);
 
     const tweetSearch: ITweetSearchDbModel | null = await TweetSearch.findById(sanitize(tweetSearchId), "tweets")
@@ -77,7 +76,7 @@ export async function getTweetSearchWithTweets(tweetSearchId: string): Promise<I
     return tweetSearchToResult(tweetSearch);
 }
 
-function tweetSearchToResult(tweetSearch: ITweetSearchDbModel): ITweetSearch {
+function tweetSearchToResult(tweetSearch: ITweetSearchDbModel): TweetSearch.Server.TweetSearch {
     // Putting user properties inside nested user object.
     return {
         name: tweetSearch.name,
@@ -95,7 +94,7 @@ function tweetSearchToResult(tweetSearch: ITweetSearchDbModel): ITweetSearch {
     };
 }
 
-export async function saveTweetSearch(tweet: ITweetSearch): Promise<ITweetSearch> {
+export async function saveTweetSearch(tweet: TweetSearch.Server.TweetSearch): Promise<TweetSearch.Server.TweetSearch> {
     await mongoose.connect(connectionString);
 
     const tweets = [];

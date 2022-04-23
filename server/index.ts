@@ -10,8 +10,6 @@ import express, { Request } from "express";
 import * as db from "./db";
 import path from 'path';
 import helmet from "helmet";
-
-import { IOldSearchWithoutTweets, ITweetSearch } from "./interfaces";
 import { search } from "./search";
 
 const app = express();
@@ -56,7 +54,7 @@ app.post("/api/search", (req, res) => {
     }
 });
 
-type OldSearchesRequest = Request<Record<string, never>, ReadonlyArray<IOldSearchWithoutTweets>, Record<string, never>, {page?: number}>;
+type OldSearchesRequest = Request<Record<string, never>, ReadonlyArray<TweetSearch.Server.OldSearchWithoutTweets>, Record<string, never>, {page?: number}>;
 app.get("/api/oldsearches", async (req: OldSearchesRequest, res, next) => {
     try {     
         let page = 0;
@@ -73,7 +71,7 @@ app.get("/api/oldsearches", async (req: OldSearchesRequest, res, next) => {
     }
 });
 
-type SingleOldSearchRequest = Request<{searchId: string}, ITweetSearch>;
+type SingleOldSearchRequest = Request<{searchId: string}, TweetSearch.Server.TweetSearch>;
 app.get("/api/oldsearches/:searchId/", async (req: SingleOldSearchRequest, res, next) => {
     try {
         const tweetSearch = await db.getTweetSearchWithTweets(req.params.searchId);
@@ -93,11 +91,11 @@ app.get("/api/oldsearches/:searchId/", async (req: SingleOldSearchRequest, res, 
     }
 });
 
-type SaveSearchRequest = Request<Record<string, never>, ITweetSearch, ITweetSearch, Record<string, never>>;
+type SaveSearchRequest = Request<Record<string, never>, TweetSearch.Server.TweetSearch, TweetSearch.Server.TweetSearch, Record<string, never>>;
 app.post("/api/oldsearches", async (req: SaveSearchRequest, res, next) => {
     const tweetSearch = req.body;
     try {
-        const result: ITweetSearch = await db.saveTweetSearch(tweetSearch);
+        const result: TweetSearch.Server.TweetSearch = await db.saveTweetSearch(tweetSearch);
         res.statusCode = 200;
         res.set("Content-Type", "application/json");
         res.send(result);
