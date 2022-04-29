@@ -16,7 +16,7 @@
     "@types/mongo-sanitize": "^1.0.1",
     "@types/mongoose": "^5.11.97",
     "@types/oauth": "^0.9.1",
-    "applicationinsights": "^2.1.7",
+    "applicationinsights": "^2.3.2",
     "axios": "^0.21.4",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
