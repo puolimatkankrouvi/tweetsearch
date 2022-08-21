@@ -1,7 +1,7 @@
 FROM node:12
 
 # Set the container working directory
-WORKDIR /usr/src/twitsearch/server
+WORKDIR /usr/src/tweetsearch/server
 
 # Copy dependencies
 COPY package*.json ./
