@@ -6,6 +6,17 @@ RUN npm install --silent
 
 COPY . .
 
-EXPOSE 3000
+RUN npm run build
 
-CMD ["npm","start"]
+FROM nginx:alpine
+
+# Ngix default directory for serving.
+WORKDIR /usr/share/nginx/html
+
+# Remove default nginx assets.
+RUN rm -rf ./*
+
+COPY --from=build /usr/bin/tweetsearch/ui/build .
+
+# Global turn off daemon directive.
+ENTRYPOINT ["nginx", "-g", "daemon off"]
