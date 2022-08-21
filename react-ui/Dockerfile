@@ -1,6 +1,6 @@
 FROM node:12
 
-WORKDIR /usr/bin/tweetsearch/ui
+WORKDIR /usr/bin/tweetsearch/ui as build
 COPY package*.json ./
 RUN npm install --silent
 
