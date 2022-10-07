@@ -11,7 +11,7 @@ function OldSearchesList(props) {
             if (!search) {
                 return null;
             }
-           
+
             return <OldSearch search={search} onSearchSelected={onSearchSelected} />;
         },
         [onSearchSelected]
@@ -27,9 +27,9 @@ function OldSearchesList(props) {
 }
 
 function getHeader() {
-    return <div className="p-grid">
-        <div className="p-col-6" />
-        <div className="p-col-6" />
+    return <div className="grid">
+        <div className="col-6" />
+        <div className="col-6" />
     </div>;
 }
 

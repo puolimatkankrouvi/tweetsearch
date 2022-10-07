@@ -61,15 +61,15 @@ const saveSearchDialog = (props) => {
                 visible={props.open}
                 onHide={props.closeDialog}
             >
-                <div className="p-field" style={{ height: "50px", width: "500px" }}>
-                    <label htmlFor="searchname" className="p-d-block">Search name</label>
+                <div className="field" style={{ height: "50px", width: "500px" }}>
+                    <label htmlFor="searchname" className="block">Search name</label>
                         <InputText
                             id="searchname"
                             value={searchName}
                             onChange={ev => setSearchName(ev.target.value)}
                             onBlur={validator.current.showMessageFor("searchName")}
                         />
-                        <small className="p-d-block">{validator.current.message("searchName", searchName, "required")}</small>
+                        <small className="block">{validator.current.message("searchName", searchName, "required")}</small>
                 </div>
             </Dialog>
             <Toast ref={toast} />

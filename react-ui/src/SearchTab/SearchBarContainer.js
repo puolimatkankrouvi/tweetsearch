@@ -7,13 +7,13 @@ import { setSaveSearchDialogOpen } from '../redux/actions';
 
 class SearchBarContainer extends React.Component {
 
-    render() {       
-		return <div className="p-grid" style={{ margin: "5px 0" }}>
-            <div className="p-col-0 p-lg-4" />
-            <div className="p-col-10 p-lg-4 search-bar">
+    render() {
+		return <div className="grid" style={{ margin: "5px 0" }}>
+            <div className="col-0 lg-4" />
+            <div className="col-10 lg-4 search-bar">
                 <SearchBarLogic />
             </div>
-            <div className="p-col-0 p-lg-4">
+            <div className="col-0 lg-4">
                 <Button
                     label="Save search..."
                     disabled={!this.props.searchResult}

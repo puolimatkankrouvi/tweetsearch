@@ -3,11 +3,11 @@ import { parseTwitterDate } from "./Utilities";
 
 export function Tweet(props) {
     const tweet = props.tweet;
-    
+
     return (
-        <div className="p-col-12">
-            <div className="p-grid">
-                <div className="p-col-2">
+        <div className="col-12">
+            <div className="grid">
+                <div className="col-2">
                 {tweet.user ?
                     <div>
                         <img src={tweet.user.profile_image_url || ""} alt={tweet.user.profile_image_url} loading="lazy"/>
@@ -17,8 +17,8 @@ export function Tweet(props) {
                     null
                 }
                 </div>
-                <div className="p-col-8">{tweet.text}</div>
-                <div className="p-col-2">
+                <div className="col-8">{tweet.text}</div>
+                <div className="col-2">
                     <div>{parseTwitterDate(tweet.created_at)}</div>
                 </div>
             </div>

@@ -24,13 +24,13 @@ function itemTemplate(tweet) {
     if (!tweet) {
         return null;
     }
-   
+
     return <Tweet tweet={tweet} />;
 }
 
 function getHeader() {
-    return <div className="p-grid">
-        <div className="p-col-6" />
-        <div className="p-col-6" />
+    return <div className="grid">
+        <div className="col-6" />
+        <div className="col-6" />
     </div>;
 }
