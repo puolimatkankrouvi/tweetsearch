@@ -9,7 +9,9 @@ const SearchBar = (props) => {
 		return function cleanup() {
 			removeEventListener("keydown", onEnterPressed);
 		};
-	});
+	},
+	  []
+	);
 
 	const onEnterPressed = (ev) => {
 		if (ev.key === "Enter" && !ev.shiftKey) {
