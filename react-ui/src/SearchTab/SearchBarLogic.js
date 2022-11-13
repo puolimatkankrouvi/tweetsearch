@@ -36,7 +36,7 @@ const SearchBarLogic = (props) => {
 
 	return(
 		<SearchBar
-			searchText={props.searchText}
+			searchText={props.searchText || ""}
 			handleChange={props.setSearchText}
 			sendSearch={sendSearch}
 			className="Search-bar"

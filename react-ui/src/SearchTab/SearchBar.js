@@ -4,6 +4,14 @@ import { Button } from "primereact/button";
 
 const SearchBar = (props) => {
 	useEffect(() => {
+		const onEnterPressed = (ev) => {
+			if (ev.key === "Enter" && !ev.shiftKey) {
+				if (props.searchText && props.searchText.length > 0) {
+					props.sendSearch();
+				}
+			}
+		}
+
 		addEventListener("keydown", onEnterPressed);
 
 		return function cleanup() {
@@ -13,19 +21,11 @@ const SearchBar = (props) => {
 	  []
 	);
 
-	const onEnterPressed = (ev) => {
-		if (ev.key === "Enter" && !ev.shiftKey) {
-			if (props.searchText.length > 0) {
-				props.sendSearch();
-			}
-		}
-	}
-
 	return(
 		<div>
 			<InputText
 				value={props.searchText || ""}
-					onChange={ev => props.handleChange(ev.target.value)}
+				onChange={ev => props.handleChange(ev.target.value)}
 				placeholder={"...Search from tweets"}
 				style={{width: "300px"}}
 			/>
