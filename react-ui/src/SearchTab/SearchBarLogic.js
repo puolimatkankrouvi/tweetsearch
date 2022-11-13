@@ -5,7 +5,7 @@ import { changeText, searchToState, setSearchErrorMessage, setTweetLoadProgress,
 
 import SearchBar from './SearchBar';
 
-const searchBarLogic = (props) => {
+const SearchBarLogic = (props) => {
 	const sendSearch = React.useCallback(() => {
 		if (props.searchText) {
 			props.setTweetsLoading(true);
@@ -76,4 +76,4 @@ function dispatchToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, dispatchToProps)(searchBarLogic);
+export default connect(mapStateToProps, dispatchToProps)(SearchBarLogic);

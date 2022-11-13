@@ -4,7 +4,7 @@ import TweetListLogic from "./TweetListLogic";
 import SaveSearchDialog from "./SaveSearchDialog";
 import SearchBarContainer from "./SearchBarContainer";
 
-const body = (props) => {
+const SearchTab = (props) => {
 	return <div>
 		<SearchBarContainer />       
 		<TweetListLogic />
@@ -13,7 +13,7 @@ const body = (props) => {
 };
 
 function mapStateToProps(state) {
-	return {searchResult: state.searchResult};
+	return { searchResult: state.searchResult };
 }
 
-export default connect(mapStateToProps)(body);
+export default connect(mapStateToProps)(SearchTab);
