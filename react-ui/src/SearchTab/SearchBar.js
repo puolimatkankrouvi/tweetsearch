@@ -17,9 +17,7 @@ const SearchBar = (props) => {
 		return function cleanup() {
 			removeEventListener("keydown", onEnterPressed);
 		};
-	},
-	  []
-	);
+	});
 
 	return(
 		<div>
