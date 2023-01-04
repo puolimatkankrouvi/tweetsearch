@@ -14,10 +14,9 @@ import { search } from "./search";
 
 const app = express();
 
-const allowedTwitterImageUrls: ReadonlyArray<string> = ["twimg.com", "pbs.twimg.com", "abs.twimg.com"];
+const allowedTwitterImageUrls: ReadonlyArray<string> = ["twimg.com", "*.twimg.com"];
 app.use(helmet({
     contentSecurityPolicy: {
-        useDefaults: true,
         directives: {
             "img-src": allowedTwitterImageUrls
         }
