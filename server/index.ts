@@ -13,11 +13,13 @@ import helmet from "helmet";
 import { search } from "./search";
 
 const app = express();
+
+const allowedTwitterImageUrls: ReadonlyArray<string> = ["twimg.com", "pbs.twimg.com", "abs.twimg.com"];
 app.use(helmet({
     contentSecurityPolicy: {
         useDefaults: true,
         directives: {
-            "img-src": ["twimg.com", "*.twimg.com"]
+            "img-src": allowedTwitterImageUrls
         }
     },
     crossOriginResourcePolicy: {
