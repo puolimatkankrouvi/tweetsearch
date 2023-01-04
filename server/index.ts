@@ -17,11 +17,9 @@ const app = express();
 const allowedTwitterImageUrls: ReadonlyArray<string> = ["twimg.com", "*.twimg.com"];
 app.use(helmet({
     contentSecurityPolicy: {
-        useDefaults: true,
         directives: {
-            "img-src": allowedTwitterImageUrls,
-            "upgradeInsecureRequests": [],
-        },
+            "img-src": allowedTwitterImageUrls
+        }
     },
     crossOriginResourcePolicy: {
         policy: "cross-origin"
