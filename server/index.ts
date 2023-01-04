@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === "production")
 }
 
 import express, { Request } from "express";
-import * as db from "./db";
+import * as tweetService from "./tweetService";
 import path from 'path';
 import helmet from "helmet";
 import { search } from "./search";
@@ -66,7 +66,7 @@ app.get("/api/oldsearches", async (req: OldSearchesRequest, res, next) => {
             page = req.query.page;
         }
 
-        const tweetSearches = await db.getTweetSearches(page);
+        const tweetSearches = await tweetService.getTweetSearches(page);
         res.statusCode = 200;
         res.send(tweetSearches);
     }
@@ -78,7 +78,7 @@ app.get("/api/oldsearches", async (req: OldSearchesRequest, res, next) => {
 type SingleOldSearchRequest = Request<{searchId: string}, TweetSearch.Server.TweetSearch>;
 app.get("/api/oldsearches/:searchId/", async (req: SingleOldSearchRequest, res, next) => {
     try {
-        const tweetSearch = await db.getTweetSearchWithTweets(req.params.searchId);
+        const tweetSearch = await tweetService.getTweetSearchWithTweets(req.params.searchId);
 
         res.set("Content-Type", "application/json");
         if (tweetSearch)
@@ -99,7 +99,7 @@ type SaveSearchRequest = Request<Record<string, never>, TweetSearch.Server.Tweet
 app.post("/api/oldsearches", async (req: SaveSearchRequest, res, next) => {
     const tweetSearch = req.body;
     try {
-        const result: TweetSearch.Server.TweetSearch = await db.saveTweetSearch(tweetSearch);
+        const result: TweetSearch.Server.TweetSearch = await tweetService.saveTweetSearch(tweetSearch);
         res.statusCode = 200;
         res.set("Content-Type", "application/json");
         res.send(result);
