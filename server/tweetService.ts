@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import sanitize from "mongo-sanitize";
+import db from "./db";
 dotenv.config();
 
 const tweetSchema = new mongoose.Schema({
@@ -39,14 +40,12 @@ const TweetSearch = mongoose.model<ITweetSearchDbModel>("TweetSearch", tweetColl
 
 const pageSize = 100;
 
-const connectionString = process.env.CONNECTION_STRING || "";
-
 function tweetSearchToResultWithoutTweets(tweetSearch: ITweetSearchDbModel): TweetSearch.Server.OldSearchWithoutTweets {
     return { id: tweetSearch._id, date: tweetSearch.date, name: tweetSearch.name };
 }
 
 export async function getTweetSearches(page: number) : Promise<ReadonlyArray<TweetSearch.Server.OldSearchWithoutTweets>> {
-    await mongoose.connect(connectionString);
+    await db.connect();
     
     const skip = page * pageSize;
     const tweetSearchDbModels = await TweetSearch.find(
@@ -62,7 +61,7 @@ export async function getTweetSearches(page: number) : Promise<ReadonlyArray<Twe
 }
     
 export async function getTweetSearchWithTweets(tweetSearchId: string): Promise<TweetSearch.Server.TweetSearch | null> {
-    await mongoose.connect(connectionString);
+    await db.connect();
 
     const tweetSearch: ITweetSearchDbModel | null = await TweetSearch.findById(sanitize(tweetSearchId), "tweets")
         .populate("tweets")
@@ -95,7 +94,7 @@ function tweetSearchToResult(tweetSearch: ITweetSearchDbModel): TweetSearch.Serv
 }
 
 export async function saveTweetSearch(tweet: TweetSearch.Server.TweetSearch): Promise<TweetSearch.Server.TweetSearch> {
-    await mongoose.connect(connectionString);
+    await db.connect();
 
     const tweets = [];
 
