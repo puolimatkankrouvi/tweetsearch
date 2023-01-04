@@ -19,6 +19,9 @@ app.use(helmet({
         directives: {
             "img-src": ["twimg.com", "*.twimg.com"]
         }
+    },
+    crossOriginResourcePolicy: {
+        policy: "cross-origin"
     }
 }));
 
