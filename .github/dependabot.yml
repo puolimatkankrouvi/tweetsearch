@@ -4,7 +4,11 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - "api"
   - package-ecosystem: "npm"
     directory: "react-ui"
     schedule:
       interval: "daily"
+    labels:
+      - "react-ui"
