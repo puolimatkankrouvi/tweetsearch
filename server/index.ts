@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 if (process.env.NODE_ENV === "production")
 {
+    /* eslint-disable @typescript-eslint/no-var-requires */
     const applicationInsights = require("applicationinsights");
     applicationInsights.setup().start();
 }
