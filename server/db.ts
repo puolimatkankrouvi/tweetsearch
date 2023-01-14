@@ -6,6 +6,8 @@ dotenv.config();
 const inMemoryDatabaseAccessor = new InMemoryDatabaseAccessor();
 
 const connect = async () => {
+    mongoose.set("strictQuery", true);
+
     if (inTestEnvironment()) {
         const inMemoryDatabase = await inMemoryDatabaseAccessor.getOrCreateInMemoryDatabase();
         const inMemoryDatabaseConnectionString = inMemoryDatabase.getUri();
