@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:16
 
 # Set the container working directory
 WORKDIR /usr/bin/tweetsearch/server
