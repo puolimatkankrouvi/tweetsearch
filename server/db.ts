@@ -20,10 +20,27 @@ const connect = async () => {
     await mongoose.connect(connectionString);
 };
 
+const closeInMemoryDatabase = async () => {
+    await mongoose.disconnect();
+
+    const inMemoryDatabase = await inMemoryDatabaseAccessor.getOrCreateInMemoryDatabase();
+    await inMemoryDatabase.stop();
+};
+
+const clearInMemoryDatabase = async () => {
+    const collections = mongoose.connection.collections;
+
+    for (const collectionKey in collections) {
+        await collections[collectionKey].drop();
+    }
+};
+
 function inTestEnvironment() {
     return process.env.NODE_ENV === "test";
 }
 
 export default {
     connect,
+    closeInMemoryDatabase,
+    clearInMemoryDatabase,
 }

@@ -114,3 +114,5 @@ app.post("/api/oldsearches", async (req: SaveSearchRequest, res, next) => {
 
 const PORT = process.env.PORT || 80;
 app.listen(PORT);
+
+export default app;
