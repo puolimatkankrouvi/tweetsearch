@@ -13,7 +13,7 @@ const SearchTab = (props) => {
 };
 
 function mapStateToProps(state) {
-	return { searchResult: state.searchResult };
+	return { searchResult: state.searchTab.searchResult };
 }
 
 export default connect(mapStateToProps)(SearchTab);

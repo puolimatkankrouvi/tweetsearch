@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { search } from "../apiCalls";
-import { changeText, searchToState, setSearchErrorMessage, setTweetLoadProgress, setTweetsLoading } from '../redux/actions.js';
+import { changeText, searchToState, setSearchErrorMessage, setTweetLoadProgress, setTweetsLoading } from '../redux/reducers.js';
 
 import SearchBar from './SearchBar';
 
@@ -45,7 +45,7 @@ const SearchBarLogic = (props) => {
 };
 
 function mapStateToProps(state) {
-	return { searchText: state.text };
+	return { searchText: state.searchTab.text };
 }
 
 function calculatePercentageCompleted(progressEvent) {

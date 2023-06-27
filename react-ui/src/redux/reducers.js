@@ -1,4 +1,4 @@
-import { CHANGE_TEXT, SET_SEARCHRESULT, TWEETLOADPROGRESS, TWEETSLOADING, SEARCH_ERRORMESSAGE, SET_SAVESEARCHDIALOG_OPEN } from './actions.js';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	text: "",
@@ -9,24 +9,39 @@ const initialState = {
 	saveSearchDialogOpen: false,
 };
 
-export function search_reducer(state=[initialState], action){
-	switch(action.type){
-		case CHANGE_TEXT:
-			return {...state, text: action.text };
-		case SET_SEARCHRESULT:
-			return { ...state, searchResult: action.json, errorMessage: null};
-		case TWEETSLOADING:
-			return {...state, tweetsLoading: action.loading };
-		case TWEETLOADPROGRESS:
-			return {...state, tweetLoadProgress: action.progress };
-		case SEARCH_ERRORMESSAGE:
-            return {...state, searchResultErrorMessage: action.errorMessage };
-        case SET_SAVESEARCHDIALOG_OPEN:
-			return {...state, saveSearchDialogOpen: action.open };
-		default:
-			return state
+const searchTabSlice = createSlice({
+	name: 'searchTab',
+	initialState: initialState,
+	reducers: {
+		changeText(state, action) {
+			state.text = action.payload;
+		},
+		searchToState(state, action) {
+			state.searchResult = action.payload;
+			state.searchResultErrorMessage = null;
+		},
+		setTweetsLoading(state, action) {
+			state.tweetsLoading = action.payload;
+		},
+		setTweetLoadProgress(state, action) {
+			state.tweetLoadProgress = action.payload;
+		},
+		setSearchErrorMessage(state, action) {
+			state.searchResultErrorMessage = action.payload;
+		},
+		setSaveSearchDialogOpen(state, action) {
+			state.saveSearchDialogOpen = action.payload;
+		}
 	}
-}
+})
 
+export const {
+	changeText,
+	searchToState,
+	setSearchErrorMessage,
+	setTweetsLoading,
+	setTweetLoadProgress,
+	setSaveSearchDialogOpen,
+} = searchTabSlice.actions;
 
-export default search_reducer;
+export default searchTabSlice.reducer;
