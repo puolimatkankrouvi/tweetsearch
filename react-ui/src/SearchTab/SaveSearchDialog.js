@@ -15,14 +15,14 @@ const saveSearchDialog = (props) => {
     const toast = React.useRef(null);
 
     const showTweetsSavedMessage = () => {
-        toast.current.show({
+        toast.current?.show({
             severity: "success",
             summary: "Tweets saved",
         });
     }
 
     const showErrorMessage = () => {
-        toast.current.show({
+        toast.current?.show({
             severity: "error",
             summary: "Error when saving tweets",
         });
