@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { search } from "../apiCalls";
-import { changeText, searchToState, setSearchErrorMessage, setTweetLoadProgress, setTweetsLoading } from '../redux/reducers.js';
+import { changeText, searchToState, setSearchErrorMessage, setTweetsLoading } from '../redux/reducers.js';
 
 import SearchBar from './SearchBar';
 
@@ -10,13 +10,6 @@ const SearchBarLogic = (props) => {
 		if (props.searchText) {
 			props.setTweetsLoading(true);
 			props.setSearchToState(null);
-			
-			const config = {
-				onUploadProgress: function(progressEvent) {
-					const percentage = calculatePercentageCompleted(progressEvent);
-					props.setTweetLoadProgress(percentage);
-				}
-			}
 
 			const successCallback = (json) => {
 				props.setSearchToState(json);
@@ -28,7 +21,7 @@ const SearchBarLogic = (props) => {
 				props.setTweetsLoading(false);
 			};
 
-			search(props.searchText, config, successCallback, errorCallback);
+			search(props.searchText, successCallback, errorCallback);
 		}
 	},
 		[props.searchText]

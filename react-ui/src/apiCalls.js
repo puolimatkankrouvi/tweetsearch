@@ -3,10 +3,10 @@ import Axios from 'axios';
 const searchUrl = `/api/search/`;
 const oldSearchesUrl = `/api/oldsearches/`;
 
-export function search(searchText, config, successCallback, errorCallback) {
+export function search(searchText, successCallback, errorCallback) {
 	const encodedText = encodeURI(searchText);
 
-	Axios.post(searchUrl, { searchText: encodedText }, config)
+	Axios.post(searchUrl, { searchText: encodedText })
 		.then(
 			result => {
 				if (result.data) {
