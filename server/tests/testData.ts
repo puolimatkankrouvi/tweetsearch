@@ -1,10 +1,12 @@
 const test = {
+    _id: "abbacd6c9cac2b3359ddcabc",
     date:"2022-12-12T08:05:38.948Z",
     name:"Test",
     tweets: [],
 };
 
-const cats = {
+export const cats = {
+    _id: "61bd8d6c9cac2b3359ddcabc",
     date:"2022-12-18T07:27:40.920Z",
     name:"Cats",
     tweets: [

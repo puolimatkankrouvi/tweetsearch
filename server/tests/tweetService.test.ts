@@ -1,8 +1,10 @@
 import * as tweetService from "../tweetService";
 import db from "../db";
+import { cats } from "./testData";
 
 beforeAll(async () => await db.connect());
-beforeEach(async () => await db.clearInMemoryDatabase());
+beforeEach(async () => await db.addTestDataToInMemoryDatabase());
+afterEach(async () => await db.clearInMemoryDatabase());
 afterAll(async () => await db.closeInMemoryDatabase());
 
 describe("getTweetSearches", () => {
@@ -27,11 +29,8 @@ describe("getTweetSearches", () => {
 
 describe("getTweetSearchWithTweets", () => {
     test("Returns tweet with existing id", async () => {
-        const page = 0;
-        const existingTweetSearch = (await tweetService.getTweetSearches(page)).at(0);
-        expect(existingTweetSearch?.id).toBeDefined();
-
-        const tweetSearch = await tweetService.getTweetSearchWithTweets(existingTweetSearch!.id!);
+        const existingId = cats._id;
+        const tweetSearch = await tweetService.getTweetSearchWithTweets(existingId);
         expect(tweetSearch).not.toBeNull();
     });
     test("Returns null with non existing id", async () => {

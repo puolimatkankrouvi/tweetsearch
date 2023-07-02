@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import InMemoryDatabaseAccessor from "./inMemoryDatabaseAccessor";
-import { TweetModel, TweetSearch } from "./tweetService";
+import { TweetSearch } from "./tweetService";
 import { tweetSearchesTestData } from "./tests/testData";
 
 dotenv.config();
@@ -33,12 +33,21 @@ const addTestDataToInMemoryDatabase = async () => {
     await TweetSearch.create(tweetSearchesTestData);
 };
 
+const clearInMemoryDatabase = async () => {
+    const collections = mongoose.connection.collections;
+
+    for (const collectionKey in collections) {
+        await collections[collectionKey].deleteMany();
+    }
+};
+
 function inTestEnvironment() {
     return process.env.NODE_ENV === "test";
 }
 
 export default {
     connect,
+    addTestDataToInMemoryDatabase,
+    clearInMemoryDatabase,
     closeInMemoryDatabase,
-    clearInMemoryDatabase: addTestDataToInMemoryDatabase,
 }
