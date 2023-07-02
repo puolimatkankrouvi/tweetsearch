@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import InMemoryDatabaseAccessor from "./inMemoryDatabaseAccessor";
-import { TweetSearch } from "./tweetService";
+import { TweetModel, TweetSearch } from "./tweetService";
+import { tweetSearchesTestData } from "./tests/testData";
 
 dotenv.config();
 const inMemoryDatabaseAccessor = new InMemoryDatabaseAccessor();
@@ -29,17 +30,12 @@ const closeInMemoryDatabase = async () => {
 };
 
 const addTestDataToInMemoryDatabase = async () => {
-    await addTestData();
+    await TweetSearch.create(tweetSearchesTestData);
 };
 
 function inTestEnvironment() {
     return process.env.NODE_ENV === "test";
 }
-
-const addTestData = async () => {
-    await TweetSearch.create({ date:"2022-12-12T08:05:38.948Z", name:"Test"});
-    await TweetSearch.create({ date:"2022-12-18T07:27:40.920Z", name:"Cats"});
-};
 
 export default {
     connect,
