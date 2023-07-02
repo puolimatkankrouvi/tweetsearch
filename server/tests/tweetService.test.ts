@@ -6,13 +6,22 @@ beforeEach(async () => await db.clearInMemoryDatabase());
 afterAll(async () => await db.closeInMemoryDatabase());
 
 describe("getTweetSearches", () => {
-    test("Return first page of tweet searches newest date first", async () => {
+    test("First page has two tweetsearches", async () => {
         const page = 0;
         const tweetSearches = await tweetService.getTweetSearches(page);
         expect(tweetSearches.length).toBe(2);
+    });
+    test("Tweetsearches with latest date is first", async () => {
+        const page = 0;
+        const tweetSearches = await tweetService.getTweetSearches(page);
 
         const firstTweetSearch = tweetSearches.at(0);
         expect(firstTweetSearch?.name).toBe("Cats");
+    });
+    test("Second page has no tweetsearches", async () => {
+        const page = 1;
+        const tweetSearches = await tweetService.getTweetSearches(page);
+        expect(tweetSearches.length).toBe(0);
     });
 });
 
