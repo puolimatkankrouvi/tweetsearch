@@ -14,7 +14,7 @@ function TweetListLogic(props) {
 }
 
 function mapStateToProps(state) {
-    const { searchResult, tweetsLoading, searchResultErrorMessage } = state;
+    const { searchResult, tweetsLoading, searchResultErrorMessage } = state.searchTab;
     let tweets = [];
     if (searchResult && searchResult.statuses) {
         tweets = searchResult.statuses;

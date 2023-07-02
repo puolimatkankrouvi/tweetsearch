@@ -4,7 +4,7 @@ import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Toast } from "primereact/toast";
-import { setSaveSearchDialogOpen } from "../redux/actions";
+import { setSaveSearchDialogOpen } from "../redux/reducers";
 import { save } from "../apiCalls";
 import SimpleReactValidator from "simple-react-validator";
 
@@ -15,14 +15,14 @@ const saveSearchDialog = (props) => {
     const toast = React.useRef(null);
 
     const showTweetsSavedMessage = () => {
-        toast.current.show({
+        toast.current?.show({
             severity: "success",
             summary: "Tweets saved",
         });
     }
 
     const showErrorMessage = () => {
-        toast.current.show({
+        toast.current?.show({
             severity: "error",
             summary: "Error when saving tweets",
         });
@@ -78,10 +78,11 @@ const saveSearchDialog = (props) => {
 };
 
 const mapStateToProps = (state) => {
+    const { searchResult, text, saveSearchDialogOpen } = state.searchTab;
     return {
-        open: state.saveSearchDialogOpen,
-        text: state.text,
-        searchResult: state.searchResult,
+        open: saveSearchDialogOpen,
+        text: text,
+        searchResult: searchResult,
     };
 };
 

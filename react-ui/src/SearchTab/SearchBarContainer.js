@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import { Button } from "primereact/button";
 import SearchBarLogic from "./SearchBarLogic";
 
-import { setSaveSearchDialogOpen } from '../redux/actions';
+import { setSaveSearchDialogOpen } from '../redux/reducers';
 
 const SearchBarContainer = (props) => {
     return <div className="grid" style={{ margin: "5px 0" }}>
@@ -23,8 +23,8 @@ const SearchBarContainer = (props) => {
 
 function mapStateToProps(state) {
 	return {
-        searchResult: state.searchResult,
-        text: state.text,
+        searchResult: state.searchTab.searchResult,
+        text: state.searchTab.text,
     };
 }
 

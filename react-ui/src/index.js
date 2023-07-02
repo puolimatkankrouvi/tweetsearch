@@ -1,14 +1,18 @@
 import React from 'react';
 import App from './App.js';
 import './index.css';
+import { configureStore } from '@reduxjs/toolkit';
 import { createRoot } from 'react-dom/client';
 
 
 import {Provider} from "react-redux";
-import {search_reducer} from './redux/reducers.js';
-import {createStore} from 'redux';
+import searchReducer from './redux/reducers.js';
 
-const store = createStore(search_reducer);
+const store = configureStore({
+  reducer: {
+    searchTab: searchReducer,
+  },
+});
 
 const container = document.getElementById('root');
 const root = createRoot(container);
