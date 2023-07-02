@@ -7,7 +7,8 @@ afterAll(async () => await db.closeInMemoryDatabase());
 
 describe("getTweetSearches", () => {
     test("Return first page of tweet searches newest date first", async () => {
-        const tweetSearches = await tweetService.getTweetSearches(0);
+        const page = 0;
+        const tweetSearches = await tweetService.getTweetSearches(page);
         expect(tweetSearches.length).toBe(2);
 
         const firstTweetSearch = tweetSearches.at(0);
@@ -16,6 +17,14 @@ describe("getTweetSearches", () => {
 });
 
 describe("getTweetSearchWithTweets", () => {
+    test("Returns tweet with existing id", async () => {
+        const page = 0;
+        const existingTweetSearch = (await tweetService.getTweetSearches(page)).at(0);
+        expect(existingTweetSearch?.id).toBeDefined();
+
+        const tweetSearch = await tweetService.getTweetSearchWithTweets(existingTweetSearch!.id!);
+        expect(tweetSearch).not.toBeNull();
+    });
     test("Returns null with non existing id", async () => {
         const nonExistingId = "63c26ba06d81678661725eb4";
         const tweetSearch = await tweetService.getTweetSearchWithTweets(nonExistingId);
