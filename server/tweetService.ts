@@ -22,7 +22,7 @@ interface ITweetDbModel extends mongoose.Document {
     profile_image_url: string;
 }
 
-const TweetModel = mongoose.model<ITweetDbModel>("TweetModel", tweetSchema);
+export const TweetModel = mongoose.model<ITweetDbModel>("TweetModel", tweetSchema);
 
 const tweetCollectionSchema = new mongoose.Schema({
     tweets: [{type: mongoose.Schema.Types.ObjectId , ref: "TweetModel"}],
@@ -36,7 +36,7 @@ interface ITweetSearchDbModel extends mongoose.Document {
     name: string,
 }
 
-const TweetSearch = mongoose.model<ITweetSearchDbModel>("TweetSearch", tweetCollectionSchema);
+export const TweetSearch = mongoose.model<ITweetSearchDbModel>("TweetSearch", tweetCollectionSchema);
 
 const pageSize = 100;
 
