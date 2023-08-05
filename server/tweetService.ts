@@ -93,7 +93,7 @@ function tweetSearchToResult(tweetSearch: ITweetSearchDbModel): TweetSearch.Serv
     };
 }
 
-export async function saveTweetSearch(tweet: TweetSearch.Server.TweetSearch): Promise<TweetSearch.Server.TweetSearch> {
+export async function saveTweetSearch(tweet: TweetSearch.Server.TweetSearchSaveModel): Promise<TweetSearch.Server.TweetSearch> {
     await db.connect();
 
     const tweets = [];

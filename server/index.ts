@@ -12,6 +12,8 @@ import * as tweetService from "./tweetService";
 import path from 'path';
 import helmet from "helmet";
 import { search } from "./search";
+import { ValidationError } from "class-validator";
+import { transformAndValidate } from "class-transformer-validator";
 
 const app = express();
 
@@ -98,14 +100,24 @@ app.get("/api/oldsearches/:searchId/", async (req: SingleOldSearchRequest, res, 
     }
 });
 
-type SaveSearchRequest = Request<Record<string, never>, TweetSearch.Server.TweetSearch, TweetSearch.Server.TweetSearch, Record<string, never>>;
+type SaveSearchRequest = Request<Record<string, never>, TweetSearch.Server.TweetSearch | ReadonlyArray<ValidationError>, TweetSearch.Server.TweetSearchSaveModel, Record<string, never>>;
 app.post("/api/oldsearches", async (req: SaveSearchRequest, res, next) => {
-    const tweetSearch = req.body;
+    let tweetSearch: TweetSearch.Server.TweetSearchSaveModel;
     try {
-        const result: TweetSearch.Server.TweetSearch = await tweetService.saveTweetSearch(tweetSearch);
+        // TODO: TweetSearch namespace does not work.
+        tweetSearch = await transformAndValidate(TweetSearch.Server.TweetSearchSaveModel, req.body);
+    }
+    catch(validationError) {
+        res.statusCode = 400;
+        res.set("Content-Type", "application/json");
+        res.send(validationError as ReadonlyArray<ValidationError>);
+        return;
+    }
+    try {
+        // const result: TweetSearch.Server.TweetSearch = await tweetService.saveTweetSearch(tweetSearch);
         res.statusCode = 200;
         res.set("Content-Type", "application/json");
-        res.send(result);
+        res.send(tweetSearch);
     }
     catch(error) {       
         next("Saving search failed");
