@@ -30,7 +30,7 @@ const tweetCollectionSchema = new mongoose.Schema({
     name: String,
 });
 
-interface ITweetSearchDbModel extends mongoose.Document {
+interface ITweetSearchDbModel extends mongoose.Document<string> {
     tweets: ReadonlyArray<ITweetDbModel>,
     date: string,
     name: string,
