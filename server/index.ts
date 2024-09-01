@@ -37,7 +37,13 @@ app.use(express.urlencoded({extended: false, limit: "1000mb"}));
 app.use(express.json({limit: "1000mb"}));
 
 app.get("/api/search", async (req, res, next) => {
-  // url: /search?q=&23query
+    if (process.env.NODE_ENV === "production") {
+        res.statusCode = 403;
+        res.send("Forbidden");
+        return;
+    }
+
+    // url: /search?q=&23query
     const query = req.query.q as string;
     try {
         const tweets: ReadonlyArray<TweetSearch.Server.TweetSearch> = await search(req, res, query);
