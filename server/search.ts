@@ -4,8 +4,6 @@ import { NextFunction, Response } from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-const twitterSearchUrl = "https://api.twitter.com/1.1/search/tweets.json";
-
 export const search = async (res: Response, query: string, next: NextFunction) => {
     try {
         const accessToken = await getAccessToken();
@@ -45,7 +43,8 @@ const searchTweets = async (query: string, accessToken: AccessToken) => {
     const headers = {Authorization: `Bearer ${accessToken.token}` };
 
     const encodedQuery = encodeURIComponent(query);
-    const url = `${twitterSearchUrl}?q=${encodedQuery}&count=100`;
+
+    const url = `https://api.twitter.com/1.1/search/tweets.json?q=${encodedQuery}&count=100`;
 
     const response = await axios.get<Array<TweetSearch.Server.TweetSearch>>(url, { headers });
 
