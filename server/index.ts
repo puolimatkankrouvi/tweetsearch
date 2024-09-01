@@ -45,11 +45,24 @@ app.get("/api/search", async (req, res, next) => {
 
     // url: /search?q=&23query
     const query = req.query.q as string;
+
+    if (!query) {
+        res.statusCode = 400;
+        res.send("Missing query parameter ?q=example");
+        return;
+    }
+
     await search(res, query, next);
 });
 
 app.post("/api/search", async (req, res, next) => {
     const query = req.body.searchText;
+
+    if (!query) {
+        res.statusCode = 400;
+        res.send("Missing query body { searchText: \"example\"");
+        return;
+    }
     
     await search(res, query, next);
 });
