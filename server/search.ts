@@ -1,16 +1,21 @@
 import axios from "axios";
 import { AccessToken, ClientCredentials, ModuleOptions, WreckHttpOptions } from "simple-oauth2";
-import { Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
 const twitterSearchUrl = "https://api.twitter.com/1.1/search/tweets.json";
 
-export const search = async (_req: Request, _res: Response, query: string): Promise<ReadonlyArray<TweetSearch.Server.TweetSearch>> => {
-    const accessToken = await getAccessToken();
-    const tweets: ReadonlyArray<TweetSearch.Server.TweetSearch> = await searchTweets(query, accessToken);
-
-    return tweets;
+export const search = async (res: Response, query: string, next: NextFunction) => {
+    try {
+        const accessToken = await getAccessToken();
+        const tweets: ReadonlyArray<TweetSearch.Server.TweetSearch> = await searchTweets(query, accessToken);
+        res.statusCode = 200;
+        res.send(tweets);
+    }
+    catch (err) {
+        next("Error in search");
+    }
 }
 
 const getAccessToken = async (): Promise<AccessToken> => {

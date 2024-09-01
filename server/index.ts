@@ -45,27 +45,13 @@ app.get("/api/search", async (req, res, next) => {
 
     // url: /search?q=&23query
     const query = req.query.q as string;
-    try {
-        const tweets: ReadonlyArray<TweetSearch.Server.TweetSearch> = await search(req, res, query);
-        res.statusCode = 200;
-        res.send(tweets);
-    }
-    catch (err) {
-        next("Error in search");
-    }
+    await search(res, query, next);
 });
 
 app.post("/api/search", async (req, res, next) => {
     const query = req.body.searchText;
     
-    try {
-        const tweets: ReadonlyArray<TweetSearch.Server.TweetSearch> = await search(req, res, query);
-        res.statusCode = 200;
-        res.send(tweets);
-    }
-    catch (err) {
-        next("Error in search");
-    }
+    await search(res, query, next);
 });
 
 type OldSearchesRequest = Request<Record<string, never>, ReadonlyArray<TweetSearch.Server.OldSearchWithoutTweets>, Record<string, never>, {page?: number}>;
