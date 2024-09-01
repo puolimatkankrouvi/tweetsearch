@@ -36,29 +36,35 @@ app.use(express.static(path.resolve(__dirname, "../../react-ui/build")));
 app.use(express.urlencoded({extended: false, limit: "1000mb"}));
 app.use(express.json({limit: "1000mb"}));
 
-app.get("/api/search", (req, res) => {
-  // url: /search?q=&23query
+app.get("/api/search", async (req, res, next) => {
+    if (process.env.NODE_ENV === "production") {
+        res.statusCode = 403;
+        res.send("Forbidden");
+        return;
+    }
+
+    // url: /search?q=&23query
     const query = req.query.q as string;
-    search(req, res, query,
-        (result) => {
-            res.statusCode = 200;
-            res.set("Content-Type", "application/json");
-            res.send(result);
-        }
-    );
+
+    if (!query) {
+        res.statusCode = 400;
+        res.send("Missing query parameter ?q=example");
+        return;
+    }
+
+    await search(res, query, next);
 });
 
-app.post("/api/search", (req, res) => {
+app.post("/api/search", async (req, res, next) => {
     const query = req.body.searchText;
-    if (query && query.length > 0) {
-        search(req, res, query,
-            (result) => {
-                res.statusCode = 200;
-                res.set("Content-Type", "application/json");
-                res.send(result);
-            }
-        );
+
+    if (!query) {
+        res.statusCode = 400;
+        res.send("Missing query body { searchText: \"example\"");
+        return;
     }
+    
+    await search(res, query, next);
 });
 
 type OldSearchesRequest = Request<Record<string, never>, ReadonlyArray<TweetSearch.Server.OldSearchWithoutTweets>, Record<string, never>, {page?: number}>;
