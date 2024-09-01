@@ -36,28 +36,29 @@ app.use(express.static(path.resolve(__dirname, "../../react-ui/build")));
 app.use(express.urlencoded({extended: false, limit: "1000mb"}));
 app.use(express.json({limit: "1000mb"}));
 
-app.get("/api/search", (req, res) => {
+app.get("/api/search", async (req, res, next) => {
   // url: /search?q=&23query
     const query = req.query.q as string;
-    search(req, res, query,
-        (result) => {
-            res.statusCode = 200;
-            res.set("Content-Type", "application/json");
-            res.send(result);
-        }
-    );
+    try {
+        const tweets: ReadonlyArray<TweetSearch.Server.TweetSearch> = await search(req, res, query);
+        res.statusCode = 200;
+        res.send(tweets);
+    }
+    catch (err) {
+        next("Error in search");
+    }
 });
 
-app.post("/api/search", (req, res) => {
+app.post("/api/search", async (req, res, next) => {
     const query = req.body.searchText;
-    if (query && query.length > 0) {
-        search(req, res, query,
-            (result) => {
-                res.statusCode = 200;
-                res.set("Content-Type", "application/json");
-                res.send(result);
-            }
-        );
+    
+    try {
+        const tweets: ReadonlyArray<TweetSearch.Server.TweetSearch> = await search(req, res, query);
+        res.statusCode = 200;
+        res.send(tweets);
+    }
+    catch (err) {
+        next("Error in search");
     }
 });
 
