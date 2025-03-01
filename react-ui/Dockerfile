@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:20
 
 WORKDIR /usr/bin/tweetsearch/ui as build
 COPY package*.json ./
@@ -8,7 +8,7 @@ COPY . .
 
 RUN npm run build
 
-FROM nginx:alpine
+FROM nginx:latest
 
 # Ngix default directory for serving.
 WORKDIR /usr/share/nginx/html
