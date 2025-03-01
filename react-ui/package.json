@@ -37,7 +37,7 @@
     "simple-react-validator": "1.6.2"
   },
   "scripts": {
-    "lint": "eslint",
+    "lint": "eslint . --ext .ts",
     "start": "webpack-dev-server --mode=development --hot",
     "build": "webpack --mode=production"
   },
