@@ -51,7 +51,7 @@ export async function getTweetSearches(page: number) : Promise<ReadonlyArray<Twe
     const tweetSearchDbModels = await TweetSearch.find(
             {},
             "name date _id",
-            { limit: 100, skip }
+            { limit: pageSize, skip }
     )
     .sort({"date": -1})
     .exec();
