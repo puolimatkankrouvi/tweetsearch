@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 if (process.env.NODE_ENV === "production")
 {
-    /* eslint-disable @typescript-eslint/no-var-requires */
+    /* eslint-disable @typescript-eslint/no-require-imports */
     const applicationInsights = require("applicationinsights");
     applicationInsights.setup().start();
 }
@@ -79,7 +79,7 @@ app.get("/api/oldsearches", async (req: OldSearchesRequest, res, next) => {
         res.statusCode = 200;
         res.send(tweetSearches);
     }
-    catch (err) {
+    catch {
         next("Getting old searches failed");
     }
 });
@@ -99,7 +99,7 @@ app.get("/api/oldsearches/:searchId/", async (req: SingleOldSearchRequest, res, 
             res.send();
         }
     }
-    catch (err) {
+    catch {
         next("Getting old search failed");
     }
 });
@@ -113,7 +113,7 @@ app.post("/api/oldsearches", async (req: SaveSearchRequest, res, next) => {
         res.set("Content-Type", "application/json");
         res.send(result);
     }
-    catch(error) {       
+    catch {       
         next("Saving search failed");
     }
 });
