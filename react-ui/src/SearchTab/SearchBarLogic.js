@@ -41,19 +41,8 @@ function mapStateToProps(state) {
 	return { searchText: state.searchTab.text };
 }
 
-function calculatePercentageCompleted(progressEvent) {
-	if (progressEvent) {
-		return Math.floor((progressEvent.loaded * 100) / progressEvent.total);
-	}
-
-	return 0;
-}
-
 function dispatchToProps(dispatch) {
 	return {
-		setTweetLoadProgress: percentage => {			
-			dispatch(setTweetLoadProgress(percentage));
-		},
 		setTweetsLoading: tweetsLoading => {
 			dispatch(setTweetsLoading(tweetsLoading));
 		},

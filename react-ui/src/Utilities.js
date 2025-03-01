@@ -26,7 +26,7 @@ export function parseTwitterDate(str) {
 
         return null;
     }
-    catch (e) {
+    catch {
         return null;
     }
 }
