@@ -8,5 +8,6 @@ cd react-ui
 npm start
 
 TODO:
-- [] Async api search instead of callbacks that Express does not support well anymore
+- [x] Async api search instead of callbacks that Express does not support well anymore
+- [] Node 22 update
 - [] Use modern Azure login in workflow (like OpenID Connect)
