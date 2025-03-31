@@ -11,7 +11,7 @@ export const search = async (res: Response, query: string, next: NextFunction) =
         res.statusCode = 200;
         res.send(tweets);
     }
-    catch (err) {
+    catch {
         next("Error in search");
     }
 }
