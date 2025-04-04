@@ -9,5 +9,5 @@ npm start
 
 TODO:
 - [x] Async api search instead of callbacks that Express does not support well anymore
-- [] Node 22 update
+- [x] Node 22 update
 - [] Use modern Azure login in workflow (like OpenID Connect)
