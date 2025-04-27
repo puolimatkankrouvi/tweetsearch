@@ -36,5 +36,5 @@ function RunNpmInstall(
     }
 }
 
-# RunNpmInstall($null);
-RunNpmInstall("./react-ui");
+RunNpmInstall($null);
+# RunNpmInstall("./react-ui");
