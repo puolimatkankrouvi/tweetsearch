@@ -14,6 +14,7 @@ const compat = new FlatCompat({
 });
 
 export default [...compat.extends("eslint:recommended", "plugin:react/recommended"), {
+    ignores: ["**/webpack.config.js", "node_modules"],
     plugins: {
         react,
     },
