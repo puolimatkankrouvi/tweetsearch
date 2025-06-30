@@ -31,9 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v4.2.2
     - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v4.4.0
       with:
         node-version: ${{ env.NODE_VERSION }}
     - name: Api build
