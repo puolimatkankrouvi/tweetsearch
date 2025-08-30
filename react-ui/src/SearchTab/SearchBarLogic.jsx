@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { search } from "../apiCalls";
+import { search } from "../apiCalls.js";
 import { changeText, searchToState, setSearchErrorMessage, setTweetsLoading } from '../redux/reducers.js';
 
-import SearchBar from './SearchBar';
+import SearchBar from './SearchBar.jsx';
 
 const SearchBarLogic = (props) => {
 	const sendSearch = React.useCallback(() => {
