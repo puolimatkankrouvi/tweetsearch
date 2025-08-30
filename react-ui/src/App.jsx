@@ -5,10 +5,10 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
-import Header from './Header.js';
-const SearchTab = React.lazy(() => import('./SearchTab/SearchTab'));
-const SearchHistoryTab = React.lazy(() => import('./SearchHistoryTab/SearchHistoryTab'));
-import LoadingIndicator from "./LoadingIndicator";
+import Header from './Header.jsx';
+const SearchTab = React.lazy(() => import('./SearchTab/SearchTab.jsx'));
+const SearchHistoryTab = React.lazy(() => import('./SearchHistoryTab/SearchHistoryTab.jsx'));
+import LoadingIndicator from "./LoadingIndicator.jsx";
 
 import { HashRouter, Route, Routes } from "react-router-dom";
 

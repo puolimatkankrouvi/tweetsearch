@@ -4,7 +4,7 @@ import SearchHistoryHeader from "./SearchHistoryHeader";
 import TweetList from "../TweetList";
 import ErrorMessage from "../ErrorMessage";
 
-import { getOldSearches, getOldSearchWithTweets } from "../apiCalls";
+import { getOldSearches, getOldSearchWithTweets } from "../apiCalls.js";
 
 const SET_OLD_SEARCHES = "SET_OLD_SEARCHES";
 const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE";

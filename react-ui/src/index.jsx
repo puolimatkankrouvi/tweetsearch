@@ -1,5 +1,5 @@
 import React from 'react';
-import App from './App.js';
+import App from './App.jsx';
 import './index.css';
 import { configureStore } from '@reduxjs/toolkit';
 import { createRoot } from 'react-dom/client';
