@@ -31,6 +31,8 @@ function RunNpmInstall(
 
     Invoke-Expression -Command $dependencyNpmInstallScript;
 
+    Invoke-Expression -Command "npm audit fix";
+
     if ($subFolder) {
         Set-Location "../";
     }
