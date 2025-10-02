@@ -19,7 +19,7 @@
     "primereact": "10.9.7",
     "prop-types": "15.8.1",
     "react": "19.1.1",
-    "react-dom": "19.1.1",
+    "react-dom": "19.2.0",
     "react-redux": "9.2.0",
     "react-router-dom": "7.9.3",
     "react-transition-group": "4.4.5",
