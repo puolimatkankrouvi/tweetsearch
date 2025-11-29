@@ -23,7 +23,7 @@
     "helmet": "8.1.0",
     "mongo-sanitize": "1.1.0",
     "mongodb-memory-server": "10.3.0",
-    "mongoose": "7.8.7",
+    "mongoose": "9.0.0",
     "simple-oauth2": "5.1.0"
   },
   "repository": {
@@ -41,7 +41,7 @@
     "@eslint/js": "9.39.1",
     "@types/express": "5.0.5",
     "@types/jest": "30.0.0",
-    "@types/node": "22.15.35",
+    "@types/node": "24.10.1",
     "@typescript-eslint/eslint-plugin": "8.48.0",
     "@typescript-eslint/parser": "8.48.0",
     "eslint": "9.39.1",
