@@ -4,11 +4,19 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    labels:
-      - "api"
+    ignore:
+      - dependency-name: "@types/node"
+        versions:
+          - "<=23.0.0"
+    groups:
+      api:
+        patterns:
+          - "*"
   - package-ecosystem: "npm"
     directory: "react-ui"
     schedule:
       interval: "daily"
-    labels:
-      - "frontend"
+    groups:
+      frontend:
+        patterns:
+          - "*"
