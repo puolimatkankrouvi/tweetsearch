@@ -25,7 +25,7 @@
     "react-transition-group": "4.4.5",
     "redux": "5.0.1",
     "simple-react-validator": "1.6.2",
-    "vite": "7.2.4"
+    "vite": "7.2.6"
   },
   "scripts": {
     "lint": "eslint . --ext .jsx",
