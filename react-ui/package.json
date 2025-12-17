@@ -10,7 +10,7 @@
     "globals": "16.5.0"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "2.11.1",
+    "@reduxjs/toolkit": "2.11.2",
     "@vitejs/plugin-react": "5.1.2",
     "axios": "1.13.2",
     "classnames": "2.5.1",
@@ -21,11 +21,11 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-redux": "9.2.0",
-    "react-router-dom": "7.10.1",
+    "react-router-dom": "7.11.0",
     "react-transition-group": "4.4.5",
     "redux": "5.0.1",
     "simple-react-validator": "1.6.2",
-    "vite": "7.2.7"
+    "vite": "7.3.0"
   },
   "scripts": {
     "lint": "eslint . --ext .jsx",
