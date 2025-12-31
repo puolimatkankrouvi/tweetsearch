@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import InMemoryDatabaseAccessor from "./inMemoryDatabaseAccessor";
-import { TweetSearch } from "./tweetService";
-import { tweetSearchesTestData } from "./tests/testData";
+import { addCatsTweet, addTestTweet } from "./tests/testData";
 
 dotenv.config();
 const inMemoryDatabaseAccessor = new InMemoryDatabaseAccessor();
@@ -30,7 +29,8 @@ const closeInMemoryDatabase = async () => {
 };
 
 const addTestDataToInMemoryDatabase = async () => {
-    // await TweetSearch.create(tweetSearchesTestData);
+    await addTestTweet();
+    await addCatsTweet();
 };
 
 const clearInMemoryDatabase = async () => {
