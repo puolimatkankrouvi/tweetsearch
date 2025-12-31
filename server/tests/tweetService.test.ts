@@ -1,6 +1,6 @@
 import * as tweetService from "../tweetService";
 import db from "../db";
-import { createCatsTweet } from "./testData";
+import { createCatsTweetSearch } from "./testData";
 
 beforeAll(async () => await db.connect());
 beforeEach(async () => await db.addTestDataToInMemoryDatabase());
@@ -29,7 +29,7 @@ describe("getTweetSearches", () => {
 
 describe("getTweetSearchWithTweets", () => {
     test("Returns tweet with existing id", async () => {
-        const cats = await createCatsTweet();
+        const cats = await createCatsTweetSearch();
         const existingId = cats._id.toString();
         const tweetSearch = await tweetService.getTweetSearchWithTweets(existingId);
         expect(tweetSearch).not.toBeNull();

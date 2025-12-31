@@ -7,7 +7,7 @@ const test = {
     tweets: [],
 };
 
-export async function createTestTweet() {
+export async function createTestTweetSearch() {
     return await TweetSearch.create(test);
 }
 
@@ -24,7 +24,7 @@ const cats = {
     name:"Cats",
 };
 
-export async function createCatsTweet() {
+export async function createCatsTweetSearch() {
     await TweetModel.create(catTweet);
     return await TweetSearch.create(cats);
 }
