@@ -30,7 +30,7 @@ const closeInMemoryDatabase = async () => {
 };
 
 const addTestDataToInMemoryDatabase = async () => {
-    await TweetSearch.create(tweetSearchesTestData);
+    // await TweetSearch.create(tweetSearchesTestData);
 };
 
 const clearInMemoryDatabase = async () => {

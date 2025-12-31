@@ -61,9 +61,11 @@ export async function getTweetSearches(page: number) : Promise<ReadonlyArray<Twe
 }
     
 export async function getTweetSearchWithTweets(tweetSearchId: string): Promise<TweetSearch.Server.TweetSearch | null> {
+    const objectId: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(sanitize(tweetSearchId));
+
     await db.connect();
 
-    const tweetSearch: ITweetSearchDbModel | null = await TweetSearch.findById(sanitize(tweetSearchId), "tweets")
+    const tweetSearch: ITweetSearchDbModel | null = await TweetSearch.findById(objectId, "tweets")
         .populate("tweets")
         .lean<ITweetSearchDbModel>()
         .exec();
