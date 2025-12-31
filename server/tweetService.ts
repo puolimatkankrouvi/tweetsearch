@@ -2,41 +2,10 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import sanitize from "mongo-sanitize";
 import db from "./db";
+import { ITweetSearchDbModel } from "./models/tweetSearch";
+import { TweetModel } from "./models/tweet";
+import { TweetSearch } from "./models/tweetSearch";
 dotenv.config();
-
-const tweetSchema = new mongoose.Schema({
-    text: String,
-    created_at: String,
-
-    username: String,
-    screen_name: String,
-    profile_image_url: String,
-});
-
-interface ITweetDbModel extends mongoose.Document {
-    text: string;
-    created_at: string;
-
-    username: string;
-    screen_name: string;
-    profile_image_url: string;
-}
-
-export const TweetModel = mongoose.model<ITweetDbModel>("TweetModel", tweetSchema);
-
-const tweetCollectionSchema = new mongoose.Schema({
-    tweets: [{type: mongoose.Schema.Types.ObjectId , ref: "TweetModel"}],
-    date: Date,
-    name: String,
-});
-
-interface ITweetSearchDbModel extends mongoose.Document<string> {
-    tweets: ReadonlyArray<ITweetDbModel>,
-    date: string,
-    name: string,
-}
-
-export const TweetSearch = mongoose.model<ITweetSearchDbModel>("TweetSearch", tweetCollectionSchema);
 
 const pageSize = 100;
 
@@ -61,9 +30,11 @@ export async function getTweetSearches(page: number) : Promise<ReadonlyArray<Twe
 }
     
 export async function getTweetSearchWithTweets(tweetSearchId: string): Promise<TweetSearch.Server.TweetSearch | null> {
+    const objectId: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(sanitize(tweetSearchId));
+
     await db.connect();
 
-    const tweetSearch: ITweetSearchDbModel | null = await TweetSearch.findById(sanitize(tweetSearchId), "tweets")
+    const tweetSearch: ITweetSearchDbModel | null = await TweetSearch.findById(objectId, "tweets")
         .populate("tweets")
         .lean<ITweetSearchDbModel>()
         .exec();
