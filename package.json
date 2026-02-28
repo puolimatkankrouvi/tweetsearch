@@ -17,7 +17,7 @@
     "@types/mongo-sanitize": "1.0.3",
     "@types/simple-oauth2": "5.0.8",
     "applicationinsights": "3.14.0",
-    "axios": "1.13.5",
+    "axios": "1.13.6",
     "dotenv": "17.3.1",
     "express": "5.2.1",
     "helmet": "8.1.0",
