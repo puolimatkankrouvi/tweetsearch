@@ -1,4 +1,4 @@
-FROM node:22
+FROM node:24
 
 WORKDIR /usr/bin/tweetsearch/ui as build
 COPY package*.json ./

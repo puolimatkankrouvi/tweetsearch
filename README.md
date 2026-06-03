@@ -10,6 +10,7 @@ npm start
 TODO:
 - [x] Async api search instead of callbacks that Express does not support well anymore
 - [x] Node 22 update
+- [x] Node 24 update
 - [x] Mongoose 9.0.0 id typings
 - [ ] Fix test data tweetsearches to have nested tweets. Tests work without them though.
 - [ ] Replace axios with fetch
