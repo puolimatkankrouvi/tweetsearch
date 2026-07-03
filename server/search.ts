@@ -38,7 +38,7 @@ const getAccessToken = async (): Promise<AccessToken> => {
     return accessToken;
 };
 
-const searchTweets = async (query: string, accessToken: AccessToken) => {
+const searchTweets = async (query: string, accessToken: AccessToken): Promise<Array<TweetSearch.Server.TweetSearch>> => {
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${accessToken.token}`);
 
