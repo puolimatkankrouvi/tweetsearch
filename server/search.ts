@@ -1,4 +1,3 @@
-import axios from "axios";
 import { AccessToken, ClientCredentials, ModuleOptions, WreckHttpOptions } from "simple-oauth2";
 import { NextFunction, Response } from "express";
 import dotenv from "dotenv";
@@ -40,13 +39,14 @@ const getAccessToken = async (): Promise<AccessToken> => {
 };
 
 const searchTweets = async (query: string, accessToken: AccessToken) => {
-    const headers = {Authorization: `Bearer ${accessToken.token}` };
+    const headers = new Headers();
+    headers.append('Authorization', `Bearer ${accessToken.token}`);
 
     const encodedQuery = encodeURIComponent(query);
 
     const url = `https://api.twitter.com/1.1/search/tweets.json?q=${encodedQuery}&count=100`;
 
-    const response = await axios.get<Array<TweetSearch.Server.TweetSearch>>(url, { headers });
+    const response = await fetch(url, { headers });
 
-    return response.data;
+    return (await response.json()) satisfies Array<TweetSearch.Server.TweetSearch>;
 };
