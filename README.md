@@ -11,7 +11,8 @@ TODO:
 - [x] Async api search instead of callbacks that Express does not support well anymore
 - [x] Node 22 update
 - [x] Node 24 update
-- [x] Mongoose 9.0.0 id typings
+- [ ] Mongoose 10.0.0 update
 - [ ] Fix test data tweetsearches to have nested tweets. Tests work without them though.
 - [x] Replace axios with fetch
+- [ ] primereact 11 update
 - [ ] Use modern Azure login in workflow (like OpenID Connect)
