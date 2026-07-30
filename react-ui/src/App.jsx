@@ -1,4 +1,7 @@
 import React, { Component, Suspense } from 'react';
+import { PrimeReactProvider } from 'primereact/core';
+import SagaBlue from '@primeuix/themes/SagaBlue';
+
 import './App.css';
 import "primeflex/primeflex.css";
 import 'primereact/resources/themes/saga-blue/theme.css';
@@ -15,18 +18,20 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 class App extends Component {
   render() {
     return (
-    <div className="App">       
-      <HashRouter>     
-        <Header />
-        <Suspense  fallback={<LoadingIndicator />}>
-          <Routes>
-            <Route exact path="/" element={<SearchTab />}>
-            </Route>
-            <Route path="/saved" element={<SearchHistoryTab />} />
-          </Routes>    
-        </Suspense>
-      </HashRouter>
-    </div> 
+    <PrimeReactProvider value={{ theme: { preset: SagaBlue }}}>
+      <div className="App">       
+        <HashRouter>     
+          <Header />
+          <Suspense  fallback={<LoadingIndicator />}>
+            <Routes>
+              <Route exact path="/" element={<SearchTab />}>
+              </Route>
+              <Route path="/saved" element={<SearchHistoryTab />} />
+            </Routes>    
+          </Suspense>
+        </HashRouter>
+      </div>
+    </PrimeReactProvider>
     )
   }
 }
