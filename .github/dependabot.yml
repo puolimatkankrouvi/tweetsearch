@@ -13,7 +13,7 @@ updates:
           - ">=10.0.0"
       - dependency-name: "@eslint/js"
         versions:
-          - ">=10.0.0"
+          - ">=11.0.0"
       - dependency-name: "eslint"
         versions:
           - ">=11.0.0"
@@ -28,7 +28,7 @@ updates:
     ignore:
       - dependency-name: "@eslint/js"
         versions:
-          - ">=10.0.0"
+          - ">=11.0.0"
       - dependency-name: "eslint"
         versions:
           - ">=11.0.0"
