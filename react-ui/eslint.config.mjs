@@ -24,10 +24,9 @@ export default [...compat.extends("eslint:recommended", "plugin:react/recommende
             ...globals.browser,
         },
 
-        ecmaVersion: 12,
-        sourceType: "module",
-
         parserOptions: {
+            ecmaVersion: "latest",
+            sourceType: "module",
             ecmaFeatures: {
                 jsx: true,
             },
