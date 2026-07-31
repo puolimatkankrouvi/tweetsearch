@@ -27,8 +27,10 @@ export default [{
         },
 
         parser: tsParser,
-        ecmaVersion: 12,
-        sourceType: "module",
+        parserOptions: {
+            ecmaVersion: "latest",
+            sourceType: "module",
+        },
     },
 
     rules: {},
