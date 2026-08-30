@@ -1,25 +1,19 @@
-import { connect } from "react-redux";
 import TweetList from "../TweetList";
 import ErrorMessage from "../ErrorMessage";
+import { useSelector } from "react-redux";
 
-function TweetListLogic(props) {
+function TweetListLogic() {
+    const tweets = useSelector(state => state.searchTab.searchResult?.statuses ?? []);
+    const tweetsLoading = useSelector(state => state.searchTab.tweetsLoading);
+    const searchResultErrorMessage = useSelector(state => state.searchTab.searchResultErrorMessage);
+
     return <div>
         <TweetList
-            tweets={props.tweets}
-            tweetsLoading={props.tweetsLoading}
+            tweets={tweets}
+            tweetsLoading={tweetsLoading}
         />   
-        {props.errorMessage ? <ErrorMessage errorMessage={props.errorMessage} /> : null}
+        {searchResultErrorMessage ? <ErrorMessage errorMessage={searchResultErrorMessage} /> : null}
     </div>;
 }
 
-function mapStateToProps(state) {
-    const { searchResult, tweetsLoading, searchResultErrorMessage } = state.searchTab;
-    let tweets = [];
-    if (searchResult && searchResult.statuses) {
-        tweets = searchResult.statuses;
-    }
-
-    return {tweets, tweetsLoading, errorMessage: searchResultErrorMessage };
-}
-
-export default connect(mapStateToProps)(TweetListLogic);
+export default TweetListLogic;
