@@ -1,45 +1,53 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { search } from "../apiCalls.js";
-import { changeText, searchToState, setSearchErrorMessage, setTweetsLoading } from '../redux/reducers.js';
+import { search } from "../apiCalls";
+import { changeText, searchToState, setSearchErrorMessage, setTweetsLoading } from "../redux/reducers";
 
-import SearchBar from './SearchBar.jsx';
+import SearchBar from "./SearchBar";
+
+interface SearchTabState {
+	text: string;
+}
+
+interface RootState {
+	searchTab: SearchTabState;
+}
 
 const SearchBarLogic = () => {
-	const searchText = useSelector(state => state.searchTab.text);
+	const searchText = useSelector((state: RootState) => state.searchTab.text);
 	const dispatch = useDispatch();
 
-	const handleChange = React.useCallback((text) => {
-		dispatch(changeText(text));
-	}, []);
+	const handleChange = React.useCallback(
+		(text: string) => {
+			dispatch(changeText(text));
+		},
+		[dispatch]
+	);
 
 	const sendSearch = React.useCallback(() => {
 		if (searchText) {
 			dispatch(setTweetsLoading(true));
 			dispatch(searchToState(null));
 
-			const successCallback = (json) => {
+			const successCallback = (json: any) => {
 				dispatch(searchToState(json));
 				dispatch(setTweetsLoading(false));
 			};
 
-			const errorCallback = (errorMessage) => {
+			const errorCallback = (errorMessage: string) => {
 				dispatch(setSearchErrorMessage(errorMessage));
 				dispatch(setTweetsLoading(false));
 			};
 
 			search(searchText, successCallback, errorCallback);
 		}
-	},
-		[searchText]
-	);
+	}, [searchText, dispatch]);
 
-	return(
+	return (
 		<SearchBar
 			searchText={searchText || ""}
 			handleChange={handleChange}
 			sendSearch={sendSearch}
-			className="Search-bar"
 		/>
 	);
 };

@@ -7,7 +7,7 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig(
   {
-    files: ["**/*.js", "**/*.jsx"],
+    files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 
     // Extend recommended rule sets from:
     // 1. ESLint JS's recommended rules
