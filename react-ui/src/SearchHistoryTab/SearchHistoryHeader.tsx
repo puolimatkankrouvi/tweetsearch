@@ -1,20 +1,13 @@
 import { Panel } from "primereact/panel";
 import { BreadCrumb, type BreadCrumbProps } from "primereact/breadcrumb";
-
-interface Search {
-	name: string;
-	date?: string | number | Date;
-	[key: string]: any;
-}
+import type { OldSearch } from "../types";
 
 interface SearchHistoryHeaderProps {
-	selectedSearch?: Search | null;
+	selectedSearch?: OldSearch | null;
 	backToSavedSearchesList: () => void;
 }
 
-const SearchHistoryHeader = (props: SearchHistoryHeaderProps) => {
-	const { selectedSearch, backToSavedSearchesList } = { ...props };
-
+const SearchHistoryHeader = ({ selectedSearch, backToSavedSearchesList }: SearchHistoryHeaderProps) => {
 	const breadCrumbList: BreadCrumbProps["model"] = [];
 	if (selectedSearch && selectedSearch.name) {
 		breadCrumbList.push({ label: selectedSearch.name });

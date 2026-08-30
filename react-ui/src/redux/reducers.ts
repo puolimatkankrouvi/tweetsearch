@@ -24,7 +24,7 @@ const searchTabSlice = createSlice({
 		changeText(state, action: PayloadAction<string>) {
 			state.text = action.payload;
 		},
-		searchToState(state, action: PayloadAction<any>) {
+		searchToState(state, action: PayloadAction<RawSearchResult | null>) {
 			state.searchResult = action.payload;
 			state.searchResultErrorMessage = null;
 		},

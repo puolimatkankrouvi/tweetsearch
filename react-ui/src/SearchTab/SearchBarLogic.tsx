@@ -2,16 +2,10 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { search } from "../apiCalls";
 import { changeText, searchToState, setSearchErrorMessage, setTweetsLoading } from "../redux/reducers";
+import type { RootState } from "../redux/reducers";
+import type { RawSearchResult } from "../types";
 
 import SearchBar from "./SearchBar";
-
-interface SearchTabState {
-	text: string;
-}
-
-interface RootState {
-	searchTab: SearchTabState;
-}
 
 const SearchBarLogic = () => {
 	const searchText = useSelector((state: RootState) => state.searchTab.text);
@@ -29,7 +23,7 @@ const SearchBarLogic = () => {
 			dispatch(setTweetsLoading(true));
 			dispatch(searchToState(null));
 
-			const successCallback = (json: any) => {
+			const successCallback = (json: RawSearchResult) => {
 				dispatch(searchToState(json));
 				dispatch(setTweetsLoading(false));
 			};
@@ -43,13 +37,7 @@ const SearchBarLogic = () => {
 		}
 	}, [searchText, dispatch]);
 
-	return (
-		<SearchBar
-			searchText={searchText || ""}
-			handleChange={handleChange}
-			sendSearch={sendSearch}
-		/>
-	);
+	return <SearchBar searchText={searchText || ""} handleChange={handleChange} sendSearch={sendSearch} />;
 };
 
 export default SearchBarLogic;

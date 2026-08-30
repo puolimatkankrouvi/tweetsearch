@@ -2,15 +2,8 @@ import { Button } from "primereact/button";
 import SearchBarLogic from "./SearchBarLogic";
 
 import { setSaveSearchDialogOpen } from "../redux/reducers";
+import type { RootState } from "../redux/reducers";
 import { useDispatch, useSelector } from "react-redux";
-
-interface SearchTabState {
-	searchResult: any;
-}
-
-interface RootState {
-	searchTab: SearchTabState;
-}
 
 const SearchBarContainer = () => {
 	const searchResult = useSelector((state: RootState) => state.searchTab.searchResult);

@@ -1,16 +1,7 @@
 import TweetList from "../TweetList";
 import ErrorMessage from "../ErrorMessage";
 import { useSelector } from "react-redux";
-
-interface SearchTabState {
-	searchResult: { statuses?: any[] } | null;
-	tweetsLoading: boolean;
-	searchResultErrorMessage: string | null;
-}
-
-interface RootState {
-	searchTab: SearchTabState;
-}
+import type { RootState } from "../redux/reducers";
 
 function TweetListLogic() {
 	const tweets = useSelector((state: RootState) => state.searchTab.searchResult?.statuses ?? []);

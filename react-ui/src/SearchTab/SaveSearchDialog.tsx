@@ -4,19 +4,10 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import { setSaveSearchDialogOpen } from "../redux/reducers";
-import { save } from "../apiCalls.ts";
+import type { RootState } from "../redux/reducers";
+import { save } from "../apiCalls";
 import SimpleReactValidator from "simple-react-validator";
 import { useDispatch, useSelector } from "react-redux";
-
-interface SearchTabState {
-	saveSearchDialogOpen: boolean;
-	text: string;
-	searchResult: any;
-}
-
-interface RootState {
-	searchTab: SearchTabState;
-}
 
 const SaveSearchDialog = () => {
 	const open = useSelector((state: RootState) => state.searchTab.saveSearchDialogOpen);
@@ -44,7 +35,7 @@ const SaveSearchDialog = () => {
 	};
 
 	const saveSearch = React.useCallback(() => {
-		if (validator.current.allValid()) {
+		if (validator.current.allValid() && searchResult) {
 			save(searchResult, searchName)
 				.then(() => showTweetsSavedMessage())
 				.catch(() => showErrorMessage());
