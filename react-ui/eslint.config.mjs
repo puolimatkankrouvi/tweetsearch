@@ -1,44 +1,36 @@
-import react from "eslint-plugin-react";
 import globals from "globals";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import { defineConfig } from "eslint/config";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
+export default defineConfig(
+  {
+    files: ["**/*.js", "**/*.jsx"],
 
-export default [...compat.extends("eslint:recommended", "plugin:react/recommended"), {
-    ignores: ["**/webpack.config.js", "node_modules"],
-    plugins: {
-        react,
-    },
+    // Extend recommended rule sets from:
+    // 1. ESLint JS's recommended rules
+    // 2. ESLint React's recommended rules
+    extends: [
+      eslintJs.configs.recommended,
+      eslintReact.configs.recommended
+    ],
 
+    // Configure language/parsing options
     languageOptions: {
-        globals: {
-            ...globals.browser,
+      // Include browser global variables (window, document, etc.)
+      globals: {
+        ...globals.browser,
+      },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true, // Enable JSX syntax support
         },
-
-        parserOptions: {
-            ecmaVersion: "latest",
-            sourceType: "module",
-            ecmaFeatures: {
-                jsx: true,
-            },
-        },
+      },
     },
 
-    settings: {
-        react: {
-            version: "19"
-        }
-    },
+    // Custom rule overrides (modify rule levels or disable rules)
     rules: {
-        "react/prop-types": "off",
+      "react/prop-types": "off",
     },
-}];
+  },
+);
