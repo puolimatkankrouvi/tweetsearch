@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import './App.css';
 import "primeflex/primeflex.css";
 import 'primereact/resources/themes/saga-blue/theme.css';
@@ -12,9 +12,8 @@ import LoadingIndicator from "./LoadingIndicator.jsx";
 
 import { HashRouter, Route, Routes } from "react-router-dom";
 
-class App extends Component {
-  render() {
-    return (
+function App() {
+  return (
     <div className="App">       
       <HashRouter>     
         <Header />
@@ -27,8 +26,7 @@ class App extends Component {
         </Suspense>
       </HashRouter>
     </div> 
-    )
-  }
+  );
 }
 
 export default App;
