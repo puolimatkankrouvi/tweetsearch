@@ -2,24 +2,17 @@ import React from "react";
 import { DataView } from "primereact/dataview";
 import OldSearch from "./OldSearch";
 import LoadingIndicator from "../LoadingIndicator";
-
-interface Search {
-	name: string;
-	date?: string | number | Date;
-	[key: string]: any;
-}
+import type { OldSearch as OldSearchData } from "../types";
 
 interface OldSearchesListProps {
-	oldSearches: Search[];
+	oldSearches: OldSearchData[];
 	loading: boolean;
-	onSearchSelected?: (search: Search) => void;
+	onSearchSelected?: (search: OldSearchData) => void;
 }
 
-function OldSearchesList(props: OldSearchesListProps) {
-	const { oldSearches, loading, onSearchSelected } = { ...props };
-
+function OldSearchesList({ oldSearches, loading, onSearchSelected }: OldSearchesListProps) {
 	const itemTemplate = React.useCallback(
-		(search: Search) => {
+		(search: OldSearchData) => {
 			if (!search) {
 				return null;
 			}

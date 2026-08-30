@@ -1,20 +1,14 @@
 import React from "react";
+import type { OldSearch as OldSearchData } from "../types";
 
-interface Search {
-	name: string;
-	date?: string | number | Date;
-	[key: string]: any;
+interface OldSearchProps {
+	search: OldSearchData;
+	onSearchSelected?: (search: OldSearchData) => void;
 }
 
-interface PreviousSearchProps {
-	search: Search;
-	onSearchSelected?: (search: Search) => void;
-}
-
-export default function PreviousSearch(props: PreviousSearchProps) {
+export default function OldSearch({ search, onSearchSelected }: OldSearchProps) {
 	const [mouseHover, setMouseHover] = React.useState(false);
 
-	const { search, onSearchSelected } = { ...props };
 	const date = search.date ? new Date(search.date).toLocaleString() : null;
 
 	return (

@@ -1,8 +1,9 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { RawSearchResult } from "../types";
 
 interface SearchTabState {
 	text: string;
-	searchResult: any | null;
+	searchResult: RawSearchResult | null;
 	tweetsLoading: boolean;
 	searchResultErrorMessage: string | null;
 	saveSearchDialogOpen: boolean;
@@ -38,6 +39,10 @@ const searchTabSlice = createSlice({
 		},
 	},
 });
+
+export interface RootState {
+	searchTab: SearchTabState;
+}
 
 export const {
 	changeText,

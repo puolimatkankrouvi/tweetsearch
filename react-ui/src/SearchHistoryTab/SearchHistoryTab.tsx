@@ -3,19 +3,8 @@ import OldSearchesList from "./OldSearchesList";
 import SearchHistoryHeader from "./SearchHistoryHeader";
 import TweetList from "../TweetList";
 import ErrorMessage from "../ErrorMessage";
-
+import type { OldSearch, SearchWithTweets, Tweet } from "../types";
 import { getOldSearches, getOldSearchWithTweets } from "../apiCalls";
-
-interface Search {
-	id?: string | number;
-	name: string;
-	date?: string | number | Date;
-	[key: string]: any;
-}
-
-interface Tweet {
-	[key: string]: any;
-}
 
 const SET_OLD_SEARCHES = "SET_OLD_SEARCHES";
 const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE";
@@ -25,7 +14,7 @@ const BACK_TO_SAVED_SEARCHES_LIST = "BACK_TO_LIST_SEARCH_LIST";
 
 interface SetOldSearchesAction {
 	type: typeof SET_OLD_SEARCHES;
-	oldSearches: Search[];
+	oldSearches: OldSearch[];
 }
 
 interface SetErrorMessageAction {
@@ -35,7 +24,7 @@ interface SetErrorMessageAction {
 
 interface SetSelectedSearchAction {
 	type: typeof SET_SELECTED_SEARCH;
-	search: Search;
+	search: OldSearch;
 }
 
 interface SetTweetsOfSelectedSearchAction {
@@ -56,9 +45,9 @@ type SearchHistoryAction =
 
 interface SearchHistoryState {
 	searchesLoading: boolean;
-	oldSearches: Search[];
+	oldSearches: OldSearch[];
 	errorMessage: string | null;
-	selectedSearch: Search | null;
+	selectedSearch: OldSearch | null;
 	tweetsOfSelectedSearchLoading: boolean;
 	tweetsOfSelectedSearch: Tweet[];
 }
@@ -125,12 +114,12 @@ const SearchHistoryTab = () => {
 		tweetsOfSelectedSearchLoading,
 	} = { ...state };
 
-	const onSearchSelected = React.useCallback((search: Search) => {
+	const onSearchSelected = React.useCallback((search: OldSearch) => {
 		dispatch({ type: SET_SELECTED_SEARCH, search });
 	}, []);
 
 	React.useEffect(() => {
-		const successCallback = (oldSearches: Search[]) => {
+		const successCallback = (oldSearches: OldSearch[]) => {
 			dispatch({ type: SET_OLD_SEARCHES, oldSearches });
 		};
 		const errorCallback = (errorMessage: string) =>
@@ -141,7 +130,7 @@ const SearchHistoryTab = () => {
 
 	React.useEffect(() => {
 		if (selectedSearch && selectedSearch.id) {
-			const successCallback = (oldSearch: { tweets: Tweet[] }) => {
+			const successCallback = (oldSearch: SearchWithTweets) => {
 				dispatch({ type: SET_TWEETS_OF_SELECTED_SEARCH, tweets: oldSearch.tweets });
 			};
 
@@ -162,7 +151,7 @@ const SearchHistoryTab = () => {
 				backToSavedSearchesList={backToSavedSearchesList}
 			/>
 			{selectedSearch ? (
-				<TweetList loading={tweetsOfSelectedSearchLoading} tweets={tweetsOfSelectedSearch} />
+				<TweetList tweetsLoading={tweetsOfSelectedSearchLoading} tweets={tweetsOfSelectedSearch} />
 			) : (
 				<OldSearchesList
 					loading={searchesLoading}

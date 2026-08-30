@@ -1,25 +1,11 @@
-import { parseTwitterDate } from "./Utilities.ts";
-
-interface TweetUser {
-	profile_image_url?: string;
-	name: string;
-	[key: string]: any;
-}
-
-interface TweetData {
-	user?: TweetUser;
-	text: string;
-	created_at: string;
-	[key: string]: any;
-}
+import { parseTwitterDate } from "./Utilities";
+import type { Tweet as TweetData } from "./types";
 
 interface TweetProps {
 	tweet: TweetData;
 }
 
-export function Tweet(props: TweetProps) {
-	const tweet = props.tweet;
-
+export function Tweet({ tweet }: TweetProps) {
 	return (
 		<div className="col-12">
 			<div className="grid">
@@ -27,8 +13,8 @@ export function Tweet(props: TweetProps) {
 					{tweet.user ? (
 						<div>
 							<img
-								src={tweet.user.profile_image_url || ""}
-								alt={tweet.user.profile_image_url}
+								src={tweet.user.profileImageUrl || ""}
+								alt={tweet.user.profileImageUrl}
 								loading="lazy"
 							/>
 							<div>
@@ -39,9 +25,11 @@ export function Tweet(props: TweetProps) {
 				</div>
 				<div className="col-8">{tweet.text}</div>
 				<div className="col-2">
-					<div>{parseTwitterDate(tweet.created_at)}</div>
+					<div>{parseTwitterDate(tweet.createdAt)}</div>
 				</div>
 			</div>
 		</div>
 	);
 }
+
+export default Tweet;
