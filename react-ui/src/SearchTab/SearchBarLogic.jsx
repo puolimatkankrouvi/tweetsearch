@@ -6,7 +6,7 @@ import { changeText, searchToState, setSearchErrorMessage, setTweetsLoading } fr
 import SearchBar from './SearchBar.jsx';
 
 const SearchBarLogic = () => {
-	const searchText = useSelector(state => state.searchTab.searchText);
+	const searchText = useSelector(state => state.searchTab.text);
 	const dispatch = useDispatch();
 
 	const handleChange = React.useCallback((text) => {
