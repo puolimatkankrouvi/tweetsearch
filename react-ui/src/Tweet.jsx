@@ -1,4 +1,3 @@
-import * as React from "react";
 import { parseTwitterDate } from "./Utilities";
 
 export function Tweet(props) {

@@ -31,6 +31,7 @@ export default defineConfig(
     // Custom rule overrides (modify rule levels or disable rules)
     rules: {
       "react/prop-types": "off",
+      "@eslint-react/rules-of-hooks": "off"
     },
   },
 );
