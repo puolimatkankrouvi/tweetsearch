@@ -9,6 +9,10 @@ const SearchBarLogic = () => {
 	const searchText = useSelector(state => state.searchTab.searchText);
 	const dispatch = useDispatch();
 
+	const handleChange = React.useCallback((text) => {
+		dispatch(changeText(text));
+	}, []);
+
 	const sendSearch = React.useCallback(() => {
 		if (searchText) {
 			dispatch(setTweetsLoading(true));
@@ -33,7 +37,7 @@ const SearchBarLogic = () => {
 	return(
 		<SearchBar
 			searchText={searchText || ""}
-			handleChange={text => dispatch(changeText(text))}
+			handleChange={handleChange}
 			sendSearch={sendSearch}
 			className="Search-bar"
 		/>
