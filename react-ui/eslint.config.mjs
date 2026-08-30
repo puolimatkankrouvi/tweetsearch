@@ -1,6 +1,8 @@
 import globals from "globals";
 import eslintJs from "@eslint/js";
-import eslintReact from "@eslint-react/eslint-plugin";
+import eslintReactJsx from "eslint-plugin-react-jsx";
+import eslintReactDom from "eslint-plugin-react-dom";
+import eslintReactWebApi from "eslint-plugin-react-web-api";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig(
@@ -12,7 +14,9 @@ export default defineConfig(
     // 2. ESLint React's recommended rules
     extends: [
       eslintJs.configs.recommended,
-      eslintReact.configs.recommended
+      eslintReactJsx.configs.recommended,
+      eslintReactDom.configs.recommended,
+      eslintReactWebApi.configs.recommended
     ],
 
     // Configure language/parsing options
@@ -29,9 +33,6 @@ export default defineConfig(
     },
 
     // Custom rule overrides (modify rule levels or disable rules)
-    rules: {
-      "react/prop-types": "off",
-      "@eslint-react/rules-of-hooks": "off"
-    },
+    rules: {},
   },
 );
