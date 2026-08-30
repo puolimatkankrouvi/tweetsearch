@@ -1,18 +1,16 @@
-import {connect} from "react-redux";
 import TweetListLogic from "./TweetListLogic";
 import SaveSearchDialog from "./SaveSearchDialog";
 import SearchBarContainer from "./SearchBarContainer";
+import { useSelector } from "react-redux";
 
-const SearchTab = (props) => {
+const SearchTab = () => {
+	const searchResult = useSelector(state => state.searchTab.searchResult);
+
 	return <div>
 		<SearchBarContainer />       
 		<TweetListLogic />
-		{props.searchResult ? <SaveSearchDialog /> : null}
+		{searchResult ? <SaveSearchDialog /> : null}
 	</div>
 };
 
-function mapStateToProps(state) {
-	return { searchResult: state.searchTab.searchResult };
-}
-
-export default connect(mapStateToProps)(SearchTab);
+export default SearchTab;
