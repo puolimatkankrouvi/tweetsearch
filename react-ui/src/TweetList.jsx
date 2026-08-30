@@ -1,4 +1,3 @@
-import * as React from "react";
 import {DataView} from 'primereact/dataview';
 import LoadingIndicator from "./LoadingIndicator";
 

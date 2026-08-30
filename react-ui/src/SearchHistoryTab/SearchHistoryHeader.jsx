@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Panel } from "primereact/panel";
 import { BreadCrumb } from "primereact/breadcrumb";
 

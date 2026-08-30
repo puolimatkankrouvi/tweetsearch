@@ -1,4 +1,3 @@
-import * as React from "react";
 import {connect} from "react-redux";
 import { Button } from "primereact/button";
 import SearchBarLogic from "./SearchBarLogic";

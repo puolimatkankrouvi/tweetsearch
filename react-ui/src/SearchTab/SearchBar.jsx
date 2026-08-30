@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 

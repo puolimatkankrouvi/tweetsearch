@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 export default function previousSearch(props) {
     const [mouseHover, setMouseHover] = React.useState(false);

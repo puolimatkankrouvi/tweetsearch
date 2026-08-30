@@ -1,4 +1,3 @@
-import * as React from "react";
 import { connect } from "react-redux";
 import TweetList from "../TweetList";
 import ErrorMessage from "../ErrorMessage";

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import OldSearchesList from "./OldSearchesList";
 import SearchHistoryHeader from "./SearchHistoryHeader";
 import TweetList from "../TweetList";
