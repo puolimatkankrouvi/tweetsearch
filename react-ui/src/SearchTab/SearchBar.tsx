@@ -37,7 +37,7 @@ const SearchBar = (props: SearchBarProps) => {
 				label="Search"
 				onClick={props.sendSearch}
 				style={{ margin: "0 0 0 6px" }}
-				disabled={false}
+				disabled={true}
 			/>
 		</div>
 	);
