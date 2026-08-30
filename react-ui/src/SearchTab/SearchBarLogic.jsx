@@ -1,61 +1,47 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { search } from "../apiCalls.js";
 import { changeText, searchToState, setSearchErrorMessage, setTweetsLoading } from '../redux/reducers.js';
 
 import SearchBar from './SearchBar.jsx';
 
-const SearchBarLogic = (props) => {
+const SearchBarLogic = () => {
+	const searchText = useSelector(state => state.searchTab.text);
+	const dispatch = useDispatch();
+
+	const handleChange = React.useCallback((text) => {
+		dispatch(changeText(text));
+	}, []);
+
 	const sendSearch = React.useCallback(() => {
-		if (props.searchText) {
-			props.setTweetsLoading(true);
-			props.setSearchToState(null);
+		if (searchText) {
+			dispatch(setTweetsLoading(true));
+			dispatch(searchToState(null));
 
 			const successCallback = (json) => {
-				props.setSearchToState(json);
-				props.setTweetsLoading(false);
+				dispatch(searchToState(json));
+				dispatch(setTweetsLoading(false));
 			};
 
 			const errorCallback = (errorMessage) => {
-				props.setErrorMessage(errorMessage);
-				props.setTweetsLoading(false);
+				dispatch(setSearchErrorMessage(errorMessage));
+				dispatch(setTweetsLoading(false));
 			};
 
-			search(props.searchText, successCallback, errorCallback);
+			search(searchText, successCallback, errorCallback);
 		}
 	},
-		[props.searchText]
+		[searchText]
 	);
 
 	return(
 		<SearchBar
-			searchText={props.searchText || ""}
-			handleChange={props.setSearchText}
+			searchText={searchText || ""}
+			handleChange={handleChange}
 			sendSearch={sendSearch}
 			className="Search-bar"
 		/>
 	);
 };
 
-function mapStateToProps(state) {
-	return { searchText: state.searchTab.text };
-}
-
-function dispatchToProps(dispatch) {
-	return {
-		setTweetsLoading: tweetsLoading => {
-			dispatch(setTweetsLoading(tweetsLoading));
-		},
-		setSearchToState: json => {
-			dispatch(searchToState(json));
-		},
-		setSearchText: value => {
-			dispatch(changeText(value));
-		},
-		setErrorMessage: errorMessage => {
-			dispatch(setSearchErrorMessage(errorMessage));
-		},
-	};
-}
-
-export default connect(mapStateToProps, dispatchToProps)(SearchBarLogic);
+export default SearchBarLogic;

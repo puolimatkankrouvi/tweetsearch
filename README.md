@@ -16,5 +16,5 @@ TODO:
 - [x] Replace axios with fetch
 - [ ] primereact 11 update
 - [ ] Use modern Azure login in workflow (like OpenID Connect)
-- [ ] Depricated redux connect
-- [ ] Migrate from redux to zustand
+- [x] Depricated redux connect
+- [ ] Maybe migrate from redux to zustand

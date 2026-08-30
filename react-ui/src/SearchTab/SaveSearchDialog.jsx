@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -7,9 +6,15 @@ import { Toast } from "primereact/toast";
 import { setSaveSearchDialogOpen } from "../redux/reducers";
 import { save } from "../apiCalls";
 import SimpleReactValidator from "simple-react-validator";
+import { useDispatch, useSelector } from "react-redux";
 
-const saveSearchDialog = (props) => {
-    const [searchName, setSearchName] = React.useState(props.text || "");
+const saveSearchDialog = () => {
+    const open = useSelector(state => state.searchTab.saveSearchDialogOpen);
+    const text = useSelector(state => state.searchTab.text);
+    const searchResult = useSelector(state => state.searchTab.searchResult);
+    const dispatch = useDispatch();
+
+    const [searchName, setSearchName] = React.useState(text || "");
 
     const validator = React.useRef(new SimpleReactValidator());
     const toast = React.useRef(null);
@@ -30,14 +35,14 @@ const saveSearchDialog = (props) => {
 
     const saveSearch = React.useCallback(() => {
         if (validator.current.allValid()) {
-            save(props.searchResult, searchName)
+            save(searchResult, searchName)
                 .then(() => showTweetsSavedMessage())
                 .catch(() => showErrorMessage());
 
-            props.closeDialog();
+            props.dispatch(setSaveSearchDialogOpen(false));
         }
     },
-        [props.searchResult, searchName]
+        [searchResult, searchName]
     );
 
     const footer = <div>
@@ -47,7 +52,7 @@ const saveSearchDialog = (props) => {
         />
         <Button
             label="Cancel"
-            onClick={props.closeDialog}
+            onClick={dispatch(setSaveSearchDialogOpen(false))}
             className='p-button-secondary'
         />
     </div>;
@@ -58,8 +63,8 @@ const saveSearchDialog = (props) => {
                 header="Save current search"
                 width="600px"
                 footer={footer}
-                visible={props.open}
-                onHide={props.closeDialog}
+                visible={open}
+                onHide={dispatch(setSaveSearchDialogOpen(false))}
             >
                 <div className="field" style={{ height: "50px", width: "500px" }}>
                     <label htmlFor="searchname" className="block">Search name</label>
@@ -77,19 +82,4 @@ const saveSearchDialog = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    const { searchResult, text, saveSearchDialogOpen } = state.searchTab;
-    return {
-        open: saveSearchDialogOpen,
-        text: text,
-        searchResult: searchResult,
-    };
-};
-
-function dispatchToProps(dispatch) {
-    return {
-        closeDialog: () => dispatch(setSaveSearchDialogOpen(false))
-    };
-}
-
-export default connect(mapStateToProps, dispatchToProps)(saveSearchDialog);
+export default saveSearchDialog;
