@@ -17,6 +17,9 @@ updates:
       - dependency-name: "eslint"
         versions:
           - ">=11.0.0"
+      - dependency-name: "typescript"
+        versions:
+          - ">=7.0.0"
     groups:
       api:
         patterns:
@@ -35,6 +38,9 @@ updates:
       - dependency-name: "typescript"
         versions:
           - ">=7.0.0"
+      - dependency-name: "primereact"
+        versions:
+          - ">=11.0.0"
     groups:
       frontend:
         patterns:
