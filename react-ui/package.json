@@ -34,7 +34,7 @@
     "vite": "8.2.2"
   },
   "scripts": {
-    "lint": "eslint . --ext .jsx",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "vite",
     "build": "vite build"
   },
