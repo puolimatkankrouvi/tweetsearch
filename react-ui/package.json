@@ -5,11 +5,13 @@
   "devDependencies": {
     "@eslint/eslintrc": "3.3.6",
     "@eslint/js": "10.0.1",
+    "@types/node": "24.1.0",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
     "eslint": "10.9.1",
-    "eslint-plugin-react-dom": "5.18.6",
-    "eslint-plugin-react-jsx": "5.18.6",
-    "eslint-plugin-react-web-api": "5.18.6",
-    "globals": "17.11.0"
+    "globals": "17.11.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.68.0"
   },
   "dependencies": {
     "@reduxjs/toolkit": "2.12.0",
@@ -30,7 +32,7 @@
     "vite": "8.2.2"
   },
   "scripts": {
-    "lint": "eslint . --ext .jsx",
+    "lint": "eslint . --ext .ts,.tsx",
     "start": "vite",
     "build": "vite build"
   },
