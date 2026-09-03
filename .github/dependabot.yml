@@ -29,6 +29,9 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      - dependency-name: "@types/node"
+        versions:
+          - ">=24.0.0"
       - dependency-name: "@eslint/js"
         versions:
           - ">=11.0.0"
