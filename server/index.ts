@@ -44,7 +44,7 @@ const limiter = rateLimit({
     store: new RateLimitService(),
 });
 
-app.use(limiter);
+app.use("/", limiter);
 
 // Body parser
 app.use(express.urlencoded({extended: false, limit: "1000mb"}));
