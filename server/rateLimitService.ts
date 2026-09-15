@@ -16,26 +16,26 @@ class RateLimitService implements Store {
             const newRateLimitEntry = new RateLimitEntryModel({
                 key: key,
                 total_hits: 1,
-                reset_time: new Date(),
+                reset_time_utc: new Date(),
             });
             
             const rateLimitEntry = await newRateLimitEntry.save();
 
             return {
                 totalHits: rateLimitEntry.total_hits,
-                resetTime: rateLimitEntry.reset_time,
+                resetTime: rateLimitEntry.reset_time_utc,
             }
         }
 
         const newTotalHits = existingRateLimitEntry.total_hits + 1;
         existingRateLimitEntry.updateOne({
             total_hits: newTotalHits,
-            reset_time: new Date(),
+            reset_time_utc: new Date(),
         });
 
         return {
             totalHits: existingRateLimitEntry.total_hits,
-            resetTime: existingRateLimitEntry.reset_time,
+            resetTime: existingRateLimitEntry.reset_time_utc,
         }
     }
 
@@ -50,7 +50,7 @@ class RateLimitService implements Store {
         const newTotalHits = existingRateLimitEntry.total_hits - 1;
         existingRateLimitEntry.updateOne({
             total_hits: newTotalHits,
-            reset_time: new Date(),
+            reset_time_utc: new Date(),
         });
     }
 

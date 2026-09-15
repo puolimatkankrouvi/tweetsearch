@@ -5,7 +5,7 @@ export interface IRateLimitEntry extends mongoose.Document {
     key: string,
 
     total_hits: number,
-    reset_time: Date,
+    reset_time_utc: Date,
 }
 
 export const RateLimitEntryModel = mongoose.model<IRateLimitEntry>("RateLimitEntryModel", rateLimitEntrySchema);
