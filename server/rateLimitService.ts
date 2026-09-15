@@ -28,13 +28,12 @@ class RateLimitService implements Store {
         }
 
         const newTotalHits = existingRateLimitEntry.total_hits + 1;
-        existingRateLimitEntry.updateOne({
+        await existingRateLimitEntry.updateOne({
             total_hits: newTotalHits,
-            reset_time_utc: new Date(),
         });
 
         return {
-            totalHits: existingRateLimitEntry.total_hits,
+            totalHits: newTotalHits,
             resetTime: existingRateLimitEntry.reset_time_utc,
         }
     }
@@ -48,7 +47,7 @@ class RateLimitService implements Store {
         }
 
         const newTotalHits = existingRateLimitEntry.total_hits - 1;
-        existingRateLimitEntry.updateOne({
+        await existingRateLimitEntry.updateOne({
             total_hits: newTotalHits,
             reset_time_utc: new Date(),
         });
