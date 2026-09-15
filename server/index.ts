@@ -13,6 +13,7 @@ import path from 'path';
 import helmet from "helmet";
 import { search } from "./search";
 import rateLimit from "express-rate-limit";
+import RateLimitService from "./rateLimitService";
 
 const app = express();
 
@@ -40,6 +41,7 @@ const limiter = rateLimit({
 	standardHeaders: true,
 	legacyHeaders: false,
 	ipv6Subnet: 56,
+    store: new RateLimitService(),
 });
 
 app.use(limiter);
