@@ -54,7 +54,6 @@ class RateLimitService implements Store {
             const newTotalHits = existingRateLimitEntry.total_hits - 1;
             await existingRateLimitEntry.updateOne({
                 total_hits: newTotalHits,
-                reset_time_utc: new Date(),
             });
         } catch {
             return;
