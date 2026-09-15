@@ -78,7 +78,8 @@ class RateLimitService implements Store {
     }
 
     private getResetTime(): Date {
-        return new Date();
+        // 60 minutes from now.
+        return new Date(Date.now() + 60 * 60 * 1000);
     }
 }
 
