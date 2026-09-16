@@ -31,21 +31,21 @@ app.use(helmet({
     }
 }));
 
-// Priority to serve any static files
-app.use(express.static(path.resolve(__dirname, "../../react-ui/build")));
 
 // Rate limit
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
-	limit: 50, // Limit each IP to 50 requests per `window` (here, per 15 minutes)
+	limit: 50, // Limit each IP to 300 requests per `window` (here, per 15 minutes)
 	standardHeaders: true,
 	legacyHeaders: false,
 	ipv6Subnet: 56,
     store: new RateLimitService(),
+    // Add rate limit to index.html only.
+    skip: (req) => req.path !== "/" && !req.path.endsWith(".html")
 });
 
-// Rate limit api only.
-app.use(limiter);
+// Priority to serve any static files
+app.use(limiter, express.static(path.resolve(__dirname, "../../react-ui/build")));
 
 // Body parser
 app.use(express.urlencoded({extended: false, limit: "1000mb"}));
