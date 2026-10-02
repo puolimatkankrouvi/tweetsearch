@@ -8,7 +8,6 @@ const inMemoryDatabaseAccessor = new InMemoryDatabaseAccessor();
 
 const connect = async () => {
     mongoose.set("strictQuery", true);
-    mongoose.set("autoIndex", false);
 
     if (inTestEnvironment()) {
         const inMemoryDatabase = await inMemoryDatabaseAccessor.getOrCreateInMemoryDatabase();
