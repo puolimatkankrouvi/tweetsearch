@@ -38,7 +38,7 @@ const clearInMemoryDatabase = async () => {
     const collections = mongoose.connection.collections;
 
     for (const collectionKey in collections) {
-        await collections[collectionKey].deleteMany();
+        await collections[collectionKey].deleteMany({});
     }
 };
 

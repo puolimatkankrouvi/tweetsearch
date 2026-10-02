@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node server/build",
     "build-prod": "npm install && npm run build",
-    "test": "jest"
+    "test": "jest --detectOpenHandles --runInBand"
   },
   "cacheDirectories": [
     "node_modules",
