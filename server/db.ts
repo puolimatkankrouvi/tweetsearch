@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import InMemoryDatabaseAccessor from "./inMemoryDatabaseAccessor";
 import { createCatsTweetSearch, createTestTweetSearch } from "./tests/testData";
 
-dotenv.config();
 const inMemoryDatabaseAccessor = new InMemoryDatabaseAccessor();
 
 const connect = async () => {
@@ -37,7 +35,7 @@ const clearInMemoryDatabase = async () => {
     const collections = mongoose.connection.collections;
 
     for (const collectionKey in collections) {
-        await collections[collectionKey].deleteMany();
+        await collections[collectionKey].deleteMany({});
     }
 };
 

@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import sanitize from "mongo-sanitize";
 import db from "./db";
 import { ITweetSearchDbModel } from "./models/tweetSearch";
 import { TweetModel } from "./models/tweet";
 import { TweetSearch } from "./models/tweetSearch";
-dotenv.config();
 
 const pageSize = 100;
 

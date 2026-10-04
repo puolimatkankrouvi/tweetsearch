@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-dotenv.config();
+import setupDotenv from "./setupDotenv";
+setupDotenv();
 if (process.env.NODE_ENV === "production")
 {
     /* eslint-disable @typescript-eslint/no-require-imports */
