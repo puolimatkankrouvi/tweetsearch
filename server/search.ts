@@ -1,7 +1,5 @@
 import { AccessToken, ClientCredentials, ModuleOptions, WreckHttpOptions } from "simple-oauth2";
 import { NextFunction, Response } from "express";
-import dotenv from "dotenv";
-dotenv.config();
 
 export const search = async (res: Response, query: string, next: NextFunction) => {
     try {

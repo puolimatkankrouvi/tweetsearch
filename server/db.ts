@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import InMemoryDatabaseAccessor from "./inMemoryDatabaseAccessor";
 import { createCatsTweetSearch, createTestTweetSearch } from "./tests/testData";
 
-dotenv.config();
 const inMemoryDatabaseAccessor = new InMemoryDatabaseAccessor();
 
 const connect = async () => {
