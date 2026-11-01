@@ -18,4 +18,4 @@ TODO:
 - [ ] Use modern Azure login in workflow (like OpenID Connect)
 - [x] Depricated redux connect
 - [ ] Maybe migrate from redux to zustand
-- [ ] Fix .env file with tests
+- [ ] Dotenv 18 update, Fix .env file with tests
