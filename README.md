@@ -18,4 +18,5 @@ TODO:
 - [ ] Use modern Azure login in workflow (like OpenID Connect)
 - [x] Depricated redux connect
 - [ ] Maybe migrate from redux to zustand
+- [ ] Tests only work with mongoose 9.9.x
 - [ ] Dotenv 18 update, Fix .env file with tests
