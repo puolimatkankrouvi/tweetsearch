@@ -1,6 +1,8 @@
 import * as tweetService from "../tweetService";
 import db from "../db";
 import { createCatsTweetSearch } from "./testData";
+import setupDotenv from "../setupDotenv";
+setupDotenv();
 
 // The benefit of connect before tests is it makes sure in memory db exists.
 beforeAll(async () => await db.connect());
